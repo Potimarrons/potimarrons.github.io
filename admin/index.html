@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Potimarrons - Admin</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        <script src="../src/supabase.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="header">
+            <a class="icon home" href="../index.html"><i class="fa-solid fa-house-user"></i></a>
+            <h2>Panel Admin</h2>
+        </div>
+
+        <div id="panel" class="panel" style="display: none;">
+            <h2>Voici le panel admin</h2>
+            <p>Si vous avez les droits administrateurs, vous pourrez utiliser les boutons ci-dessous.</p>
+            <span class="---"></span>
+            <div class="box">
+                <h3>Gestion des utilisateurs</h3>
+                <button onclick="see_users()">Voir la liste des utilisateurs</button>
+                <button onclick="promote()">Promouvoir un utilisateur</button>
+                <button onclick="unpromote()">Dégrader un utilisateur</button>
+                <div class="super-admin" id="super-admin" style="display: none;">
+                    <button onclick="remove_admin()">Supprimer un administrateur</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-refused" id="access-refused" style="display: none;">
+            <h3>Accès refusé</h3>
+            <p>Vous n'avez pas les droits administrateurs pour accéder à cette page.</p>
+        </div>
+
+        <div class="access-waiting" id="access-waiting">
+            <h3>chargement...</h3>
+            <p>Nous chargons votre session...</p>
+        </div>
+        <a class="link login" href="../login/index.html"><i class="fa-solid fa-user"></i></a>
+    </body>
+    <script src="../src/inspect_script.js"></script>
+    <script type="module" src="script.js" defer></script>
+    <script type="module" src="../src/path_checker.js"></script>
+</html>

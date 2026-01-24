@@ -1,0 +1,110 @@
+body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: 'Consolas', monospace;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 1vw;
+    background-color: #2b2b2b;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2vw;
+}
+
+.header .home {
+    position: absolute;
+    left: 2vw;
+    color: #f0f0f0;
+    font-size: 3vw;
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+.header .home:hover {
+    transform: translateY(-0.5vh );
+}
+
+.signup, .signup-page {
+    text-align: center;
+    align-items: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.signup-page {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 5vh;
+    background: #2b2b2b;
+    padding: 2vw;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+
+.signup-page:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+}
+
+.signup input {
+    padding: 1vw;
+    border-radius: 6px;
+    border: none;
+    font-family: inherit;
+    font-size: 1vw;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    outline: none;
+    transition: background 0.5s ease; 
+}
+.signup input:focus {
+    background-color: #333;
+}
+
+.signup button {
+    padding: 1vw;
+    border-radius: 8px;
+    border: none;
+    background: #3a3a3a;
+    color: white;
+    cursor: pointer;
+    font-size: 1vw;
+    transition: background 0.5s ease, transform 0.2s ease;
+}
+
+.signup button:hover {
+    background: #5a5a5a;
+    transform: translateY(-2px);
+}
+
+.error {
+    color: #ff4d4d;
+    margin-bottom: 1vh;
+    font-size: 1vw;
+    margin: 0 0 2vh 0;
+}
+.signin {
+    color: #4da6ff;
+    text-decoration: none;
+    font-size: 1vw;
+    transition: color 0.5s ease;
+}
+.signup {
+    margin-bottom: 2vh;
+}
+.signin:hover {
+    color: #80bfff;
+}

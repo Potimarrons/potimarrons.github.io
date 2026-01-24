@@ -1,0 +1,126 @@
+body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: 'Consolas', monospace;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 1vw;
+    background-color: #2b2b2b;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2vw;
+}
+
+.header .home {
+    position: absolute;
+    left: 2vw;
+    color: #f0f0f0;
+    font-size: 3vw;
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+.header .home:hover {
+    transform: translateY(-0.5vh );
+}
+
+.panel, .access-refused, .box, .access-waiting {
+    text-align: center;
+    align-items: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.panel, .access-refused, .access-waiting {
+    display: flex;  
+    flex-direction: column;
+    width: 60%;
+    margin-top: 5vh;
+    background: #2b2b2b;
+    padding: 2vw;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+.panel:hover, .access-refused:hover, .access-waiting:hover {
+    transform: translateY(-0.5vh);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+}
+.access-refused h3, .access-waiting h3 {
+    margin: 0;
+    color: #ff4c4c;
+}
+
+.panel button {
+    padding: 1vw;
+    border-radius: 8px;
+    border: none;
+    background: #2b2b2b;
+    color: white;
+    cursor: pointer;
+    font-size: 1vw;
+    transition: background 0.5s ease, transform 0.2s ease;
+    width: 15vw;
+}
+.panel button:hover {
+    background: #5a5a5a;
+    transform: translateY(-2px);
+}
+
+.panel h2 {
+    margin-top: 0;
+    text-decoration: underline;
+}
+.panel p {
+    font-size: 1.2vw;
+    margin: 0;
+    color: #d0d0d0;
+}
+.panel span.--- {
+    display: block;
+    margin: 1vh 0;
+    border-bottom: 1px solid #d0d0d0;
+    width: 100%;
+}
+.box {
+    background: #353535;
+    padding: 1vw;
+    border-radius: 8px;
+}
+.super-admin {
+    margin-top: 1vh;
+}
+.super-admin button {
+    background: #b22222;
+}
+.super-admin button:hover {
+    background: #ff4c4c;
+}
+
+.link {
+    text-align: center;
+    aspect-ratio: 1/1;
+    transition: all 0.5s ease-in-out;
+    font-size: 8vmin;
+    color:#f0f0f0;
+    text-decoration:none;
+    position: absolute;
+    bottom: 2vh;
+}
+.link:hover {
+    transform: translateY(-0.4vh);
+}
+.login {
+    right: 1vw;
+}

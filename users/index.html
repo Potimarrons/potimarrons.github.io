@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Potimarons - Users</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        <script src="../src/supabase.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="header">
+            <a class="icon home" href="../admin/index.html"><i class="fa-solid fa-reply"></i></a>
+            <h2>Liste des utilisateurs</h2>
+        </div>
+
+        <div id="panel" class="panel" style="display: none;">
+            <h2>Voici la liste des utilisateurs</h2>
+            <p>Vous aurez besoin de droits administrateurs pour accéder à cette page.</p>
+            <span class="---"></span>
+            <div class="users-box" id="users-box">
+            </div>
+        </div>
+
+        <div id="show-user-info" class="show-user-info" style="display: none;">
+            <h3>Voici les informations de l'utilisateur : <span id="session-id"></span></h3>
+            <p><strong>Email :</strong> <span id="user-email"></span></p>
+            <p><strong>Utilisateur créé le :</strong> <span id="user-created-at"></span></p>
+            <p><strong>Dernière connexion le :</strong> <span id="user-connected-at"></span></p>
+            <p><strong>Admin :</strong> <span id="user-admin">chargement...</span></p>
+        </div>
+
+        <div class="access-refused" id="access-refused" style="display: none;">
+            <h3>Accès refusé</h3>
+            <p>Vous n'avez pas les droits administrateurs pour accéder à cette page.</p>
+        </div>
+
+        <div class="access-waiting" id="access-waiting">
+            <h3>chargement...</h3>
+            <p>Nous chargons votre session...</p>
+        </div>
+        <a class="link login" href="../login/index.html"><i class="fa-solid fa-user"></i></a>
+    </body>
+    <script type="module" src="script.js"></script>
+    <script src="../src/inspect_script.js"></script>
+    <script type="module" src="../src/path_checker.js"></script>
+</html>

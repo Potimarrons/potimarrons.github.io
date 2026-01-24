@@ -1,0 +1,63 @@
+body {
+    background-color:#1e1e1e;
+    color:#f0f0f0;
+    font-family:Consolas, monospace;
+    margin:0; 
+}
+
+h1 {
+    text-align:center;
+    margin-bottom:2vh;
+    font-size: 3vw;
+}
+
+.projects-count {
+    text-align:center;
+    color:#aaa;
+    margin-bottom:5vh;
+    font-size: 1.5vw;
+}
+.link {
+    text-align: center;
+    aspect-ratio: 1/1;
+    transition: all 0.5s ease-in-out;
+    font-size: 8vmin;
+    color:#f0f0f0;
+    text-decoration:none;
+    position: fixed;
+    bottom: 2vh;
+}
+.link:hover {
+    transform: translateY(-0.4vh);
+}
+.login {
+    right: 1vw;
+}
+
+.scrollTopBtn {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    bottom: 3vh;
+    right: 1vw;
+    z-index: 100;
+    border: none;
+    outline: none;
+    background-color: #3a3a3a;
+    color: white;
+    cursor: pointer;
+    width: 4vw;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 2vw;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    transition: all 0.5s ease-in-out;
+}
+.scrollTopBtn.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.scrollTopBtn:hover {
+    background-color: #5a5a5a;
+    transform: translateY(-0.4vh);
+}
