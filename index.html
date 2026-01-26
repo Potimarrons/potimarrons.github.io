@@ -1,22 +1,184 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Potimarrons - Index</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-        <script src="../src/supabase.js" defer></script>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="src/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <h1>📜 Potimarrons Club 📜</h1>
-        <div class="projects-count" id="projects-count">Chargement des potins</div>
-        <button class="scrollTopBtn" id="scrollTopBtn" onclick="topFunction()"><i class="fa-solid fa-arrow-up"></i></button>
-        <div class="projects-div" id="projects-div"></div>
-        <a class="link login" href="login/index.html"><i class="fa-solid fa-user"></i></a>
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Le bon T4</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <header>
+        <h1>Le bon T4</h1>
+        <p>Kebab · Tacos · Sandwichs · Sur place & à emporter</p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>À propos</h2>
+            <p class="about">
+                Le bon T4 vous accueille dans une ambiance simple et conviviale.
+                Tous nos plats sont préparés sur place avec des produits soigneusement sélectionnés.
+                Portions généreuses, recettes classiques et service rapide.
+            </p>
+        </section>
+
+        <section>
+            <h2>Notre menu</h2>
+
+            <div class="menu-grid">
+
+                <div class="menu-box">
+                    <h3>🥙 Kebabs</h3>
+                    <ul>
+                        <li><span>Kebab classique</span><span>7,50 €</span></li>
+                        <li><span>Kebab fromage</span><span>8,00 €</span></li>
+                        <li><span>Kebab galette</span><span>8,00 €</span></li>
+                        <li><span>Kebab double viande</span><span>9,50 €</span></li>
+                        <li><span>Kebab maison</span><span>9,00 €</span></li>
+                        <li><span>Assiette kebab</span><span>12,00 €</span></li>
+                    </ul>
+                </div>
+
+                <div class="menu-box">
+                    <h3>🌮 Tacos</h3>
+                    <ul>
+                        <li><span>Tacos 1 viande</span><span>8,50 €</span></li>
+                        <li><span>Tacos 2 viandes</span><span>10,00 €</span></li>
+                        <li><span>Tacos 3 viandes</span><span>11,50 €</span></li>
+                        <li><span>Tacos poulet</span><span>9,00 €</span></li>
+                        <li><span>Tacos kebab</span><span>9,50 €</span></li>
+                        <li><span>Tacos XL</span><span>13,00 €</span></li>
+                    </ul>
+                </div>
+
+                <div class="menu-box">
+                    <h3>🌱 Végétarien</h3>
+                    <ul>
+                        <li><span>Falafel sandwich</span><span>7,50 €</span></li>
+                        <li><span>Assiette falafels</span><span>11,00 €</span></li>
+                        <li><span>Salade végétarienne</span><span>9,00 €</span></li>
+                        <li><span>Tacos végétarien</span><span>8,50 €</span></li>
+                    </ul>
+                </div>
+
+                <div class="menu-box">
+                    <h3>🥤 Boissons</h3>
+                    <ul>
+                        <li><span>Coca-Cola</span><span>2,00 €</span></li>
+                        <li><span>Coca zéro</span><span>2,00 €</span></li>
+                        <li><span>Fanta</span><span>2,00 €</span></li>
+                        <li><span>Sprite</span><span>2,00 €</span></li>
+                        <li><span>Ice Tea</span><span>2,00 €</span></li>
+                        <li><span>Oasis</span><span>2,00 €</span></li>
+                        <li><span>Eau plate</span><span>1,50 €</span></li>
+                        <li><span>Eau gazeuse</span><span>1,80 €</span></li>
+                        <li><span>Ayran</span><span>2,50 €</span></li>
+                        <li><span>Red Bull</span><span>3,00 €</span></li>
+                    </ul>
+                </div>
+
+                <div class="menu-box">
+                    <h3>🍟 Accompagnements</h3>
+                    <ul>
+                        <li><span>Frites</span><span>3,00 €</span></li>
+                        <li><span>Frites cheddar</span><span>4,00 €</span></li>
+                        <li><span>Potatoes</span><span>4,00 €</span></li>
+                    </ul>
+                </div>
+
+                <div class="menu-box">
+                    <h3>🧄 Sauces</h3>
+                    <p class="note">
+                        Blanche, Harissa, Samouraï, Andalouse, <a href="/passerelle/index.html">Algérienne</a>,
+                        Ketchup, Mayo, BBQ, Curry, Chili douce
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="menu-box" style="margin-top:2rem;">
+                <h3>🍴 Formules</h3>
+                <ul>
+                    <li><span>Menu Kebab + frites + boisson</span><span>9,50 €</span></li>
+                    <li><span>Menu Tacos + frites + boisson</span><span>10,50 €</span></li>
+                    <li><span>Menu Végé + boisson</span><span>9,00 €</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Informations</h2>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>Adresse</h3>
+                    <p>12 rue du Centre<br>75000 Paris</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Contact</h3>
+                    <p>09 84 52 13 76<br>Sur place & à emporter</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Horaires</h3>
+                    <ul class="hours">
+                        <li><span>Lundi</span><span>Fermé midi / 18h – 23h</span></li>
+                        <li><span>Mardi</span><span>11h – 14h / 18h – 23h</span></li>
+                        <li><span>Mercredi</span><span>11h – 14h / 18h – 23h</span></li>
+                        <li><span>Jeudi</span><span>11h – 14h / 18h – 23h</span></li>
+                        <li><span>Vendredi</span><span>11h – 14h / 18h – 00h</span></li>
+                        <li><span>Samedi</span><span>11h – 14h / 18h – 00h</span></li>
+                        <li><span>Dimanche</span><span>Fermé</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Avis clients</h2>
+            <div class="reviews-box">
+                <div class="review">★★★★★ Excellent kebab, bien garni.</div>
+                <div class="review">★★★★☆ Service rapide même le soir.</div>
+                <div class="review">★★★★☆ Très bon tacos, bien chaud.</div>
+                <div class="review">★★★★★ Les sauces sont top.</div>
+                <div class="review">★★★★☆ Portions généreuses.</div>
+                <div class="review">★★★☆☆ Un peu d’attente aux heures de pointe.</div>
+                <div class="review">★★★★★ Accueil chaleureux.</div>
+                <div class="review">★★★★☆ Falafels croustillants.</div>
+                <div class="review">★★★★☆ Bon rapport qualité/prix.</div>
+                <div class="review">★★★★★ Je recommande.</div>
+            </div>
+        </section>
+        <button class="scrollTopBtn" id="scrollTopBtn" onclick="topFunction()"><i
+                class="fa-solid fa-arrow-up"></i></button>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <strong>Le bon T4</strong>
+                <p>Restauration rapide</p>
+            </div>
+            <div>
+                <p>Sur place & à emporter</p>
+                <p>Cartes acceptées</p>
+            </div>
+            <div>
+                <p>Photos non contractuelles</p>
+                <p>Prix susceptibles de changer</p>
+            </div>
+            <div>
+                <p>© 2026 Le bon T4</p>
+                <p>Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
     <script type="module" src="script.js"></script>
-    <script src="src/inspect_script.js"></script>
-</html> 
+</body>
+
+</html>

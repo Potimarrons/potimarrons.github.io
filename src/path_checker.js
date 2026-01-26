@@ -7,6 +7,9 @@ async function checkProjectAccess() {
 
     if (!projectName) return;
 
+    const { data: { session }, error: sessionError } = await sb.auth.getSession();
+    if (session) return;
+
     /*const { data, error } = await sb
         .from("CurrentProjects")
         .select("*")
@@ -14,9 +17,9 @@ async function checkProjectAccess() {
         .single();
 
     if (data.refused === false) return;
-    if (await is_admin("", data.admin)) return;
+    if (await is_admin("", data.admin)) return;*/
 
-    window.location.replace("../refused.html");*/
+    window.location.replace("../refused.html");
 }
 
 checkProjectAccess();

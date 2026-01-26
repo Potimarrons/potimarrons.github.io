@@ -1,37 +1,144 @@
+:root {
+    --bg: #111;
+    --bg-light: #1c1c1c;
+    --text: #f2f2f2;
+    --muted: #b0b0b0;
+    --accent: #e74c3c;
+    --accent-2: #f39c12;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color:#1e1e1e;
-    color:#f0f0f0;
-    font-family:Consolas, monospace;
-    margin:0; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
 }
 
-h1 {
-    text-align:center;
-    margin-bottom:2vh;
-    font-size: 3vw;
-}
-
-.projects-count {
-    text-align:center;
-    color:#aaa;
-    margin-bottom:5vh;
-    font-size: 1.5vw;
-}
-.link {
+header {
+    background: linear-gradient(to right, #000, #1a1a1a);
+    padding: 2rem 1rem;
     text-align: center;
-    aspect-ratio: 1/1;
-    transition: all 0.5s ease-in-out;
-    font-size: 8vmin;
-    color:#f0f0f0;
-    text-decoration:none;
-    position: fixed;
-    bottom: 2vh;
+    border-bottom: 2px solid var(--accent);
 }
-.link:hover {
-    transform: translateY(-0.4vh);
+
+header h1 {
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
 }
-.login {
-    right: 1vw;
+
+header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 2.5rem 1.5rem;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--accent-2);
+    border-left: 4px solid var(--accent);
+    padding-left: 0.75rem;
+}
+
+.about {
+    color: var(--muted);
+    max-width: 700px;
+}
+
+.menu-grid,
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.menu-box,
+.info-box {
+    background: var(--bg-light);
+    padding: 1.3rem;
+    border-radius: 10px;
+    border: 1px solid #222;
+}
+
+.menu-box h3 {
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
+}
+
+.menu-box ul,
+.info-box ul {
+    list-style: none;
+}
+
+.menu-box li,
+.hours li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+}
+
+.note {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.5rem;
+}
+
+.reviews-box {
+    background: linear-gradient(145deg, #1a1a1a, #101010);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+.review {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed #333;
+}
+
+.review:last-child {
+    border-bottom: none;
+}
+
+footer {
+    background: #0b0b0b;
+    border-top: 1px solid #222;
+    padding: 2rem 1rem;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.footer-grid {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+footer strong {
+    color: var(--text);
 }
 
 .scrollTopBtn {
@@ -50,14 +157,99 @@ h1 {
     aspect-ratio: 1/1;
     border-radius: 50%;
     font-size: 2vw;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
     transition: all 0.5s ease-in-out;
 }
+
 .scrollTopBtn.show {
     opacity: 1;
     pointer-events: auto;
 }
+
 .scrollTopBtn:hover {
     background-color: #5a5a5a;
     transform: translateY(-0.4vh);
+}
+
+a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    cursor: default;
+}
+
+a:visited {
+    color: #888;
+}
+
+/* ====================== */
+/* RESPONSIVE MEDIA QUERIES */
+/* ====================== */
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    main {
+        padding: 2rem 1rem;
+    }
+
+    section h2 {
+        font-size: 1.2rem;
+    }
+
+    .menu-box h3 {
+        font-size: 1rem;
+    }
+
+    .menu-box li,
+    .hours li {
+        font-size: 0.85rem;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .menu-grid,
+    .info-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scrollTopBtn {
+        width: 8vw;
+        font-size: 3vw;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.85rem;
+    }
+
+    section h2 {
+        font-size: 1.1rem;
+    }
+
+    .menu-box h3 {
+        font-size: 0.95rem;
+    }
+
+    .menu-box li,
+    .hours li {
+        font-size: 0.8rem;
+    }
+
+    .scrollTopBtn {
+        width: 10vw;
+        font-size: 4vw;
+    }
 }

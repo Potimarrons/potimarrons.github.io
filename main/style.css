@@ -1,0 +1,131 @@
+body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: Consolas, monospace;
+    margin: 0; 
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: 3vw;
+}
+
+.projects-count {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 5vh;
+    font-size: 1.5vw;
+}
+
+.link {
+    text-align: center;
+    aspect-ratio: 1/1;
+    transition: all 0.5s ease-in-out;
+    font-size: 8vmin;
+    color: #f0f0f0;
+    text-decoration: none;
+    position: fixed;
+    bottom: 2vh;
+}
+
+.link.login {
+    right: 1vw;
+}
+
+.link:hover {
+    transform: translateY(-0.4vh);
+}
+
+.scrollTopBtn {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    bottom: 3vh;
+    right: 1vw;
+    z-index: 100;
+    border: none;
+    outline: none;
+    background-color: #3a3a3a;
+    color: white;
+    cursor: pointer;
+    width: 4vw;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 2vw;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    transition: all 0.5s ease-in-out;
+}
+
+.scrollTopBtn.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.scrollTopBtn:hover {
+    background-color: #5a5a5a;
+    transform: translateY(-0.4vh);
+}
+
+/* ====================== */
+/* RESPONSIVE MEDIA QUERIES */
+/* ====================== */
+
+/* Tablette */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 5vw;
+    }
+    .projects-count {
+        font-size: 2vw;
+    }
+    .link {
+        font-size: 10vmin;
+    }
+    .scrollTopBtn {
+        width: 6vw;
+        font-size: 3vw;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 6vw;
+    }
+    .projects-count {
+        font-size: 2.5vw;
+    }
+    .link {
+        font-size: 12vmin;
+        bottom: 3vh;
+    }
+    .link.login {
+        right: 2vw;
+    }
+    .scrollTopBtn {
+        width: 8vw;
+        font-size: 4vw;
+    }
+}
+
+/* Très petit écran */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 7vw;
+    }
+    .projects-count {
+        font-size: 3vw;
+    }
+    .link {
+        font-size: 14vmin;
+        bottom: 4vh;
+    }
+    .link.login {
+        right: 3vw;
+    }
+    .scrollTopBtn {
+        width: 10vw;
+        font-size: 5vw;
+    }
+}

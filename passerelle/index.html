@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Le Kébab de l’Ombre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <main class="container">
+        <div class="neon">Le Kébab de l’Ombre</div>
+        <div class="subtitle">Ouvert tard · Parle peu</div>
+
+        <div class="divider"></div>
+
+        <p class="text">
+            Ici, on sert chaud.<br />
+            Les infos tournent lentement,<br />
+            comme la broche derrière le comptoir.
+        </p>
+
+        <p class="tagline">
+            “Ce qui se dit à minuit ne s’affiche qu’au lever du soleil.”
+        </p>
+
+        <footer>
+            ⌁ Accès réservé ⌁
+        </footer>
+    </main>
+    <!-- 🔒 Formulaire caché -->
+    <div id="secret-login" aria-hidden="true">
+        <form class="secret-form" onsubmit="">
+            <h2>Accès aux Potimarrons</h2>
+
+            <input type="email" placeholder="Email" autocomplete="off" />
+            <input type="password" placeholder="Mot de passe" autocomplete="off" />
+
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
