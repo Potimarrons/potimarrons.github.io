@@ -3,43 +3,79 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Le Kébab de l’Ombre</title>
+    <title>Le bon T4</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="../src/supabase.js" defer></script>
 </head>
 
 <body>
+    <div id="gate-loader">
+        <div class="loader-box">
+            <div class="loader-neon">Le bon T4</div>
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Vérification en cours…</p>
+        </div>
+    </div>
+
     <main class="container">
-        <div class="neon">Le Kébab de l’Ombre</div>
-        <div class="subtitle">Ouvert tard · Parle peu</div>
+        <div class="neon">Le bon T4</div>
+        <div class="subtitle">Accès reservé au personnel</div>
 
         <div class="divider"></div>
 
         <p class="text">
             Ici, on sert chaud.<br />
-            Les infos tournent lentement,<br />
+            Les kebabs tournent lentement,<br />
             comme la broche derrière le comptoir.
         </p>
 
         <p class="tagline">
-            “Ce qui se dit à minuit ne s’affiche qu’au lever du soleil.”
+            “Un bon kebab, c'est un kebab de bonne qualité - 2026”
         </p>
 
         <footer>
-            ⌁ Accès réservé ⌁
+            ⌁ Pour toute question, contactez-nous ⌁
         </footer>
     </main>
-    <!-- 🔒 Formulaire caché -->
-    <div id="secret-login" aria-hidden="true">
-        <form class="secret-form" onsubmit="">
-            <h2>Accès aux Potimarrons</h2>
+    <div id="secret-login">
+        <div class="secret-form">
+            <!-- LOADING -->
+            <div id="loading-view">
+                <h2>Chargement en cours</h2>
 
-            <input type="email" placeholder="Email" autocomplete="off" />
-            <input type="password" placeholder="Mot de passe" autocomplete="off" />
+                <p>Nous chargons votre session... veuillez patienter !</p>
+            </div>
 
-            <button type="submit">Se connecter</button>
-        </form>
+            <!-- LOGIN -->
+            <div id="login-view" style="display:none;">
+                <h2>Accès aux Potimarrons</h2>
+
+                <input id="email" type="email" placeholder="Email" autocomplete="off" />
+                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off" />
+
+                <button onclick="login()">Se connecter</button>
+            </div>
+
+            <!-- USER INFO -->
+            <div id="user-view" style="display:none;">
+                <h2>Session active</h2>
+
+                <p>Pseudo : <strong id="session-id"></strong></p>
+                <p>Email : <span id="user-email"></span></p>
+                <p>Créé le : <span id="user-created-at"></span></p>
+                <p>Dernière connexion : <span id="user-connected-at"></span></p>
+                <p>Admin : <span id="user-admin"></span></p>
+
+                <button onclick="logout()">Se déconnecter</button>
+            </div>
+
+        </div>
     </div>
+
     <script type="module" src="script.js"></script>
+    <script src="../src/inspect_script.js"></script>
 </body>
+
 </html>

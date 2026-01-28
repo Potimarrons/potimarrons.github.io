@@ -1,4 +1,5 @@
 import { is_admin, getUserData } from "../src/admin.js";
+import { checkPath } from "../src/path_checker.js";
 
 var ranks = {
     0: "Utilisateur",
@@ -122,3 +123,5 @@ document.addEventListener("DOMContentLoaded", async () => {
         accessWaiting.style.display = "none";
     }
 });
+
+checkPath(4);

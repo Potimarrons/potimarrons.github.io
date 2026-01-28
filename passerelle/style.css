@@ -30,7 +30,7 @@ body {
     border: 1px solid #222;
     border-radius: 12px;
     padding: 3rem 2.5rem;
-    max-width: 520px;
+    max-width: 50vw;
     width: 100%;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
     text-align: center;
@@ -40,9 +40,7 @@ body {
     font-size: 2.2rem;
     font-weight: 700;
     color: var(--red);
-    text-shadow:
-        0 0 5px rgba(192, 57, 43, 0.6),
-        0 0 15px rgba(192, 57, 43, 0.4);
+    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
     margin-bottom: 0.5rem;
 }
 
@@ -56,11 +54,8 @@ body {
 
 .divider {
     height: 2px;
-    width: 60px;
-    background: linear-gradient(to right,
-            var(--red),
-            var(--yellow),
-            var(--red));
+    width: 6vw;
+    background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
     margin: 0 auto 2rem;
     border-radius: 2px;
 }
@@ -108,7 +103,7 @@ footer {
     border: 1px solid #333;
     border-radius: 12px;
     padding: 2rem;
-    width: 280px;
+    width: 50vw;
     max-width: 90%;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
     text-align: center;
@@ -147,8 +142,34 @@ footer {
     background: var(--orange);
 }
 
-/* ========== RESPONSIVE ========== */
+.secret-form p {
+    color: var(--muted);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
 
+.secret-form a {
+    color: #9bffb0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.secret-form a:hover {
+    color: var(--orange);
+}
+
+.secret-form a:visited {
+    color: #9bffb0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.secret-form a:visited:hover {
+    color: var(--orange);
+}
+
+/* ========== RESPONSIVE ========== */
 /* Tablette */
 @media (max-width: 1024px) {
     .neon {
@@ -243,4 +264,59 @@ footer {
         font-size: 0.85rem;
         padding: 0.5rem;
     }
+}
+
+#gate-loader {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, #1b1b1b, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease;
+}
+
+#gate-loader.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-box {
+    text-align: center;
+}
+
+.loader-neon {
+    color: var(--red);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
+}
+
+.loader-spinner {
+    width: 10vmin;
+    height: 10vmin;
+    border: 3px solid #333;
+    border-top-color: var(--yellow);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+body:not(.validated) .container {
+    opacity: 0;
+    pointer-events: none;
 }

@@ -1,3 +1,5 @@
+import { checkPath } from '../src/path_checker.js';
+
 let mybutton = document.getElementById("scrollTopBtn");
 window.addEventListener("scroll", () => {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -10,3 +12,5 @@ window.addEventListener("scroll", () => {
 window.topFunction = function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+checkPath(1);

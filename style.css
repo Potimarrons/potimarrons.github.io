@@ -175,7 +175,7 @@ a {
     color: #888;
     text-decoration: none;
     transition: color 0.5s ease;
-    cursor: default;
+    cursor: text;
 }
 
 a:visited {
