@@ -132,6 +132,25 @@ body:not(.validated) .container {
     background: var(--orange);
 }
 
+.back-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--text);
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.back-link:hover {
+    transform: translateY(-2px);
+}
+
+/* HEADER */
+.main-header {
+    position: relative;
+    text-align: center;
+}
+
 /* LOADER */
 #gate-loader {
     position: fixed;

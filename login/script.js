@@ -104,10 +104,14 @@ async function updateSecretPanel() {
     document.getElementById("user-connected-at").textContent =
         new Date(user.last_sign_in_at).toLocaleString("fr-FR");
 
-    document.getElementById("user-rank").innerHTML = userData.rank >= 1? "<a href='../main/index.html'>" + ranks[userData.rank] + "</a>" : ranks[userData.rank];
+    document.getElementById("user-rank").innerHTML = ranks[userData.rank];
     sessionStorage.setItem(key, "validated");
 
     userView.style.display = "block";
     loginView.style.display = "none";
     loadingView.style.display = "none";
+}
+
+window.redirect = async function () {
+    window.location.replace("../main/index.html");
 }

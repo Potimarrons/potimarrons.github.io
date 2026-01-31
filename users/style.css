@@ -187,20 +187,6 @@ body:not(.validated) .main-container {
     }
 }
 
-/* LOGIN */
-.login-link {
-    position: fixed;
-    bottom: 2vh;
-    right: 2vh;
-    font-size: 2rem;
-    color: var(--text);
-    text-decoration: none;
-    transition: transform 0.2s;
-}
-.login-link:hover {
-    transform: translateY(-2px);
-}
-
 #show-user-info a {
     color: #9bffb0;
     text-decoration: none;

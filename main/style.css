@@ -150,6 +150,23 @@ body:not(.validated) .main-container {
     pointer-events: none;
 }
 
+.admin-button {
+    width: 100%;
+    padding: 0.6rem;
+    background: var(--red);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s ease;
+    display: none;
+}
+
+.admin-button:hover {
+    background: var(--orange);
+}
+
 /* RESPONSIVE */
 @media(max-width:768px) {
     .main-container {
@@ -167,5 +184,9 @@ body:not(.validated) .main-container {
     .main-actions button {
         font-size: 0.85rem;
         padding: 0.6rem 1rem;
+    }
+
+    .admin-button {
+        font-size: 0.85rem;
     }
 }

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potimarrons</title>
+    <title>Potimarrons - Accueil</title>
+
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../src/supabase.js" defer></script>
+    <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -44,11 +47,12 @@
         </section>
 
         <!-- EN ATTENTE -->
-        <section id="access-loading" class="main-card" >
+        <section id="access-loading" class="main-card">
             <h2>Chargement…</h2>
             <p>Nous vérifions votre session...</p>
         </section>
 
+        <button class="admin-button" id="admin-button" onclick="redirect()">Voir la page Admin</button>
     </main>
 
 </body>
@@ -56,4 +60,5 @@
 <script src="../src/inspect_script.js"></script>
 <script type="module" src="script.js"></script>
 <script type="module" src="../src/path_checker.js"></script>
+
 </html>
