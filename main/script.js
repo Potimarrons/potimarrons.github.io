@@ -1,16 +1,21 @@
-import { checkPath } from '../src/path_checker.js';
+import { is_admin } from "../src/admin.js";
+import { checkPath } from "../src/path_checker.js";
 
-let mybutton = document.getElementById("scrollTopBtn");
-window.addEventListener("scroll", () => {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        mybutton.classList.add("show");
+document.addEventListener("DOMContentLoaded", async () => {
+    const hasAccess = await is_admin("", 1);
+
+    document.getElementById("main-loader").classList.add("hide");
+    document.body.classList.add("validated");
+
+    if (hasAccess) {
+        document.getElementById("staff-panel").style.display = "block";
+        document.getElementById("access-loading").style.display = "none";
+        document.getElementById("access-denied").style.display = "none";
     } else {
-        mybutton.classList.remove("show");
+        document.getElementById("access-denied").style.display = "block";
+        document.getElementById("access-loading").style.display = "none";
+        document.getElementById("staff-panel").style.display = "none";
     }
 });
-
-window.topFunction = function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
 
 checkPath(1);

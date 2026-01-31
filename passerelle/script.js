@@ -6,6 +6,15 @@ const userView = document.getElementById("user-view");
 const loadingView = document.getElementById("loading-view");
 const key = deviceKey();
 
+const ranks = {
+    0: "Pas un tacos",
+    1: "Petit Tacos", 
+    2: "Le classique T1", 
+    3: "Simple, un T2",
+    4: "Le bon T4",
+    5: "T4 bien géchar"
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     const loader = document.getElementById("gate-loader");
 
@@ -86,8 +95,7 @@ async function updateSecretPanel() {
         userView.style.display = "none";
         return;
     }
-
-    const userData = await getUserData(user.email);
+    const userData = await getUserData("");
 
     document.getElementById("session-id").textContent = userData.pseudo;
     document.getElementById("user-email").textContent = user.email;
@@ -96,11 +104,7 @@ async function updateSecretPanel() {
     document.getElementById("user-connected-at").textContent =
         new Date(user.last_sign_in_at).toLocaleString("fr-FR");
 
-    const admin = await is_admin("", 1);
-    document.getElementById("user-admin").innerHTML = admin
-        ? "<span style='color:#9bffb0'><a href=\"../main/index.html\">Oui</a></span>"
-        : "<span style='color:#ff9b9b'>Non</span>";
-
+    document.getElementById("user-rank").innerHTML = userData.rank >= 1? "<a href='../main/index.html'>" + ranks[userData.rank] + "</a>" : ranks[userData.rank];
     sessionStorage.setItem(key, "validated");
 
     userView.style.display = "block";

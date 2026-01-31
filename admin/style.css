@@ -1,126 +1,208 @@
+:root {
+    --bg: #0e0e0e;
+    --bg-alt: #161616;
+    --text: #eaeaea;
+    --muted: #9b9b9b;
+    --red: #c0392b;
+    --orange: #e67e22;
+    --yellow: #f1c40f;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: #1e1e1e;
-    color: #f0f0f0;
-    font-family: 'Consolas', monospace;
-    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1b1b1b, var(--bg));
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-}
-
-.header {
-    width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    padding: 1vw;
-    background-color: #2b2b2b;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-}
-
-.header h2 {
-    margin: 0;
-    font-size: 2vw;
-}
-
-.header .home {
-    position: absolute;
-    left: 2vw;
-    color: #f0f0f0;
-    font-size: 3vw;
-    text-decoration: none;
-    transition: all 0.5s ease;
-}
-.header .home:hover {
-    transform: translateY(-0.5vh );
-}
-
-.panel, .access-refused, .box, .access-waiting {
-    text-align: center;
     align-items: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    padding: 1rem;
 }
 
-.panel, .access-refused, .access-waiting {
-    display: flex;  
-    flex-direction: column;
-    width: 60%;
-    margin-top: 5vh;
-    background: #2b2b2b;
-    padding: 2vw;
+body:not(.validated) .container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Container principal */
+.container {
+    background: var(--bg-alt);
+    border: 1px solid #222;
     border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-}
-.panel:hover, .access-refused:hover, .access-waiting:hover {
-    transform: translateY(-0.5vh);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-}
-.access-refused h3, .access-waiting h3 {
-    margin: 0;
-    color: #ff4c4c;
+    padding: 2.5rem;
+    max-width: 50vw;
+    width: 100%;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
-.panel button {
-    padding: 1vw;
-    border-radius: 8px;
-    border: none;
-    background: #2b2b2b;
-    color: white;
-    cursor: pointer;
-    font-size: 1vw;
-    transition: background 0.5s ease, transform 0.2s ease;
-    width: 15vw;
+/* Neon header */
+.neon {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--red);
+    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
+    margin-bottom: 0.5rem;
 }
-.panel button:hover {
-    background: #5a5a5a;
+
+.subtitle {
+    color: var(--orange);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.divider {
+    height: 2px;
+    width: 6vw;
+    background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
+    margin: 0 auto 2rem;
+    border-radius: 2px;
+}
+
+/* CARDS PANEL / LOADING / REFUSÉ */
+.card {
+    background: var(--bg-alt);
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.7);
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+    color: var(--red);
+}
+
+.card p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+/* BOUTONS ADMIN */
+.admin-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.admin-buttons button {
+    background: var(--bg);
+    border: 1px solid #333;
+    color: var(--text);
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.admin-buttons button:hover {
+    background: var(--red);
     transform: translateY(-2px);
 }
 
-.panel h2 {
-    margin-top: 0;
-    text-decoration: underline;
-}
-.panel p {
-    font-size: 1.2vw;
-    margin: 0;
-    color: #d0d0d0;
-}
-.panel span.--- {
-    display: block;
-    margin: 1vh 0;
-    border-bottom: 1px solid #d0d0d0;
-    width: 100%;
-}
-.box {
-    background: #353535;
-    padding: 1vw;
-    border-radius: 8px;
-}
-.super-admin {
-    margin-top: 1vh;
-}
 .super-admin button {
-    background: #b22222;
-}
-.super-admin button:hover {
-    background: #ff4c4c;
+    background: var(--red);
+    box-shadow: 0 0 10px rgba(192, 57, 43, 0.4);
 }
 
-.link {
+.super-admin button:hover {
+    background: var(--orange);
+}
+
+/* LOADER */
+#gate-loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease;
+}
+
+.loader-box {
     text-align: center;
-    aspect-ratio: 1/1;
-    transition: all 0.5s ease-in-out;
-    font-size: 8vmin;
-    color:#f0f0f0;
-    text-decoration:none;
-    position: absolute;
-    bottom: 2vh;
 }
-.link:hover {
-    transform: translateY(-0.4vh);
+
+.loader-neon {
+    color: var(--red);
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
 }
-.login {
-    right: 1vw;
+
+.loader-spinner {
+    width: 8vmin;
+    height: 8vmin;
+    border: 3px solid #333;
+    border-top-color: var(--yellow);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+    .container {
+        padding: 2rem;
+    }
+
+    .neon {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    .admin-buttons button {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
 }

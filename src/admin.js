@@ -25,7 +25,6 @@ export async function is_admin(user_email, rank, user_data = null) {
 
     const userData = user_data || await getUserData(email);
 
-    console.log("is_admin", email, userData, rank);
     return userData?.rank >= rank;
 }
 export function deviceKey() {

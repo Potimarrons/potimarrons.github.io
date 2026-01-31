@@ -21,14 +21,14 @@
 
     <main class="container">
         <div class="neon">Le bon T4</div>
-        <div class="subtitle">Accès reservé au personnel</div>
+        <div class="subtitle">Création de compte</div>
 
         <div class="divider"></div>
 
         <p class="text">
-            Ici, on sert chaud.<br />
-            Les kebabs tournent lentement,<br />
-            comme la broche derrière le comptoir.
+            La porte est fermée.<br />
+            Seuls ceux qui ont le bon jeton<br />
+            peuvent entrer dans la cuisine.
         </p>
 
         <p class="tagline">
@@ -39,7 +39,7 @@
             ⌁ Pour toute question, contactez-nous ⌁
         </footer>
     </main>
-    <div id="secret-login">
+    <div id="secret-panel">
         <div class="secret-form">
             <!-- LOADING -->
             <div id="loading-view">
@@ -48,27 +48,27 @@
                 <p>Nous chargons votre session... veuillez patienter !</p>
             </div>
 
-            <!-- LOGIN -->
-            <div id="login-view" style="display:none;">
-                <h2>Accès aux Potimarrons</h2>
+            <!-- SIGNUP -->
+            <div id="signup-view" style="display:none;">
+                <h2>Créer un compte</h2>
 
-                <input id="email" type="email" placeholder="Email" autocomplete="off" />
-                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off" />
+                <input id="email" type="email" placeholder="Email" />
+                <input id="pseudo" type="text" placeholder="Pseudo" />
+                <input id="password" type="password" placeholder="Mot de passe" />
+                <input id="password2" type="password" placeholder="Mot de passe" />
+                <input id="token" type="text" placeholder="Token d’accès" />
 
-                <button onclick="login()">Se connecter</button>
+                <button onclick="signup()">Créer le compte</button>
             </div>
 
-            <!-- USER INFO -->
-            <div id="user-view" style="display:none;">
+            <!-- ALREADY CONNECTED -->
+            <div id="connected-view" style="display:none;">
                 <h2>Session active</h2>
 
-                <p>Pseudo : <strong id="session-id"></strong></p>
-                <p>Email : <span id="user-email"></span></p>
-                <p>Créé le : <span id="user-created-at"></span></p>
-                <p>Dernière connexion : <span id="user-connected-at"></span></p>
-                <p>Rank : <span id="user-rank"></span></p>
+                <p>Tu es déjà connecté.</p>
+                <p>Clique pour être redirigé...</p>
 
-                <button onclick="logout()">Se déconnecter</button>
+                <button onclick="redirect()">Continuer</button>
             </div>
 
         </div>

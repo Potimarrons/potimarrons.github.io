@@ -1,86 +1,123 @@
-async function signup() {
+import { deviceKey } from '../src/admin.js';
+import { is_admin, getUserData } from "../src/admin.js";
+
+const signupView = document.getElementById("signup-view");
+const connectedView = document.getElementById("connected-view");
+const loadingView = document.getElementById("loading-view");
+const key = deviceKey();
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const loader = document.getElementById("gate-loader");
+
+    if (sessionStorage.getItem(key) !== "1" && sessionStorage.getItem(key) !== "validated") {
+        setTimeout(() => {
+            window.location.replace("/");
+        }, 900);
+    } else {
+        setTimeout(() => {
+            document.body.classList.add("validated");
+            loader.classList.add("hide");
+        }, 900);
+    }
+});
+
+document.addEventListener("keydown", async (e) => {
+    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "k") {
+        document.body.classList.toggle("reveal-secret");
+        if (document.body.classList.contains("reveal-secret")) {
+            await updateSecretPanel();
+        }
+    }
+});
+
+async function updateSecretPanel() {
+    const { data: { session } } = await sb.auth.getSession();
+    const user = session?.user;
+
+    if (!user) {
+        signupView.style.display = "block";
+        loadingView.style.display = "none";
+        connectedView.style.display = "none";
+        return;
+    }
+
+    connectedView.style.display = "block";
+    signupView.style.display = "none";
+    loadingView.style.display = "none";
+}
+
+window.redirect = async function () {
+    window.location.replace("../main/index.html");
+}
+
+window.signup = async function () {
     const email = document.getElementById("email");
     const pseudo = document.getElementById("pseudo");
     const password = document.getElementById("password");
     const password2 = document.getElementById("password2");
-    const errorText = document.getElementById("error");
+    const token = document.getElementById("token");
 
     if (email.value === "" || password.value === "" || password2.value === "") {
-        errorText.textContent = "Veuillez remplir tous les champs.";
+        alert("Veuillez remplir tous les champs.");
         return;
     }
 
     if (password.value !== password2.value) {
-        errorText.textContent = "Les mots de passe ne correspondent pas.";
+        alert("Les mots de passe ne correspondent pas.");
         return;
     }
 
-    if (pseudo.value !== "" && pseudo.value.length < 6 || pseudo.value.length > 20) {
-        errorText.textContent = "Le pseudo doit contenir entre 6 et 20 caractères.";
+    if (pseudo.value.length < 6 || pseudo.value.length > 20) {
+        alert("Le pseudo doit contenir entre 6 et 20 caractères.");
         return;
     } 
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.value)) {
-        errorText.textContent = "Format d'email invalide. Veuillez réessayer avec une adresse email valide.";
+        alert("Format d'email invalide. Veuillez réessayer avec une adresse email valide.");
         return;
     }
 
-    errorText.style.color = "white";
-    errorText.textContent = "Vérification du pseudo en cours...";
-    /*const { data: pseudoData, error: pseudoError } = await sb
-        .from("DataUsers")
-        .select("*")
-        .eq("pseudo", pseudo.value)
-        .maybeSingle();
-    
-    if (pseudoData) {
-        errorText.style.color = "red";
-        errorText.textContent = "Ce pseudo est deja pris.";
+    const { data, error } = await sb.rpc(
+        'consume_token_and_create_user',
+        { p_token: token.value, p_email: email.value, p_pseudo: pseudo.value }
+    );
+
+    if (data === false) {
+        alert("Le token fourni n'est pas valide.");
         return;
-    }*/
+    }
 
-    errorText.style.color = "white";
-    errorText.textContent = "Pseudo vérifié. Inscription en cours ...";
-
-    /*const { error } = await sb.auth.signUp({
+    if (error) {
+        if (error.message.startsWith("duplicate key value violates unique constraint")) {
+            alert("Cet email ou ce pseudo est deja pris.");
+        }
+        return;
+    }
+    
+    const { signupError } = await sb.auth.signUp({
         email: email.value.toLowerCase(),
         password: password.value
     });
 
-    errorText.style.color = "red";
-
-    if (error) {
-        console.error(error);
-        if (error.message === "User already registered") {
-            errorText.innerHTML = "Cet email est déjà utilisé.<br>Déjà un compte ? Connectez-vous !";
-        } else if (error.message === "Unable to validate email address: invalid format") {
-            errorText.textContent = "Format d'email invalide. Veuillez réessayer avec une adresse email valide.";
-        } else if (error.message.includes("Password should be at least") || error.message.includes("Password should contain at least")) {
-            errorText.textContent = "Le mot de passe ne remplit pas les critères de sécurité.";
-            if (error.message.includes("8 characters")) {
-                errorText.textContent += " Il doit contenir au moins 8 caractères.";
-            } else if (error.message.includes("Password should contain at least one character of each")) {
-                errorText.textContent += " Il doit contenir au moins une lettre majuscule, une lettre minuscule, un charactère spécial et un chiffre.";
-            }
+    if (signupError) {
+        if (signupError.message === "User already registered") {
+            alert("Cet email est déjà utilisé.<br>Déjà un compte ? Connectez-vous !");
+        } else if (signupError.message === "Unable to validate email address: invalid format") {
+            alert("Format d'email invalide. Veuillez réessayer avec une adresse email valide.");
+        } else if (signupError.message.includes("Password should be at least") || signupError.message.includes("Password should contain at least")) {
+            alert("Le mot de passe ne remplit pas les critères de sécurité. Il doit contenir au moins 8 caractères et doit contenir au moins une lettre majuscule, une lettre minuscule, un charactère spécial et un chiffre.");
         } else {
-            errorText.textContent = "Une erreur est survenue. Réessaie plus tard.";
+            alert("Une erreur est survenue. Réessaie plus tard.");
         }
         return;
     } else {
-        errorText.textContent = "";
-
-        const row = { email: email.value.toLowerCase(), created_at: new Date().toISOString() };
-        if (pseudo.value !== "") {
-            row.pseudo = pseudo.value;
-        }
-        await sb.from("DataUsers").insert([row]);
-
         alert("Le compte à l'email " + email.value.toLowerCase() + " a été créé avec succès ! Vous pouvez maintenant vous connecter.");
         
         email.value = "";
         password.value = "";
         password2.value = "";
         pseudo.value = "";
-    }*/
+        token.value = "";
+    }
 }

@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Potimarrons - Index</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-        <script src="../src/supabase.js" defer></script>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <h1>📜 Potimarrons Club 📜</h1>
-        <div class="projects-count" id="projects-count">Chargement des potins</div>
-        <button class="scrollTopBtn" id="scrollTopBtn" onclick="topFunction()"><i class="fa-solid fa-arrow-up"></i></button>
-        <div class="projects-div" id="projects-div"></div>
-        <a class="link login" href="../passerelle/index.html"><i class="fa-solid fa-user"></i></a>
-    </body>
-    <script type="module" src="script.js"></script>
-    <script src="../src/inspect_script.js"></script>
-    <script type="module" src="../src/path_checker.js"></script>
-</html> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potimarrons</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="../src/supabase.js" defer></script>
+</head>
+
+<body>
+    <!-- LOADER -->
+    <div id="main-loader">
+        <div class="loader-box">
+            <div class="loader-title">Les potimarrons</div>
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Vérification en cours…</p>
+        </div>
+    </div>
+
+    <!-- CONTENU -->
+    <main class="main-container">
+
+        <header class="main-header">
+            <h1 class="main-title">Accueil des potimarrons</h1>
+            <p class="main-subtitle">Réservé à l’équipe</p>
+            <div class="divider"></div>
+        </header>
+
+        <!-- PANNEAU STAFF -->
+        <section id="staff-panel" class="main-card" style="display:none;">
+            <h2>Voir les kebabs disponibles</h2>
+            <p>Utilisez les boutons ci-dessous pour gérer vos kebabs.</p>
+
+            <div class="main-actions">
+            </div>
+        </section>
+
+        <!-- ACCÈS REFUSÉ -->
+        <section id="access-denied" class="main-card" style="display:none;">
+            <h2>Accès refusé</h2>
+            <p>Cette zone est réservée au personnel autorisé.</p>
+        </section>
+
+        <!-- EN ATTENTE -->
+        <section id="access-loading" class="main-card" >
+            <h2>Chargement…</h2>
+            <p>Nous vérifions votre session...</p>
+        </section>
+
+    </main>
+
+</body>
+
+<script src="../src/inspect_script.js"></script>
+<script type="module" src="script.js"></script>
+<script type="module" src="../src/path_checker.js"></script>
+</html>

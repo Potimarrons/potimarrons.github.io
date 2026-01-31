@@ -1,14 +1,14 @@
 import { is_admin, getUserData } from "../src/admin.js";
 import { checkPath } from "../src/path_checker.js";
 
-var ranks = {
-    0: "Utilisateur",
-    1: "Guardien",
-    2: "Modérateur",
-    3: "Resp. Modérateurs",
-    4: "Administrateur",
-    5: "Resp. Administrateurs"
-};
+const ranks = {
+    0: "Pas un tacos",
+    1: "Petit Tacos",
+    2: "Le classique T1",
+    3: "Simple, un T2",
+    4: "Le bon T4",
+    5: "T4 bien géchar"
+}
 
 window.promote = async function () {
     const email = prompt("Entrez l'adresse e-mail de l'utilisateur à promouvoir :");
@@ -110,6 +110,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const accessRefused = document.getElementById("access-refused");
     const accessWaiting = document.getElementById("access-waiting");
 
+    document.getElementById("gate-loader").classList.add("hide");
+    document.body.classList.add("validated");
+
     if (admin) {
         if (await is_admin("", 5) === true) {
             superAdmin.forEach(elem => {
@@ -118,9 +121,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         panel.style.display = "block";
         accessWaiting.style.display = "none";
+        accessRefused.style.display = "none";
     } else {
         accessRefused.style.display = "block";
         accessWaiting.style.display = "none";
+        panel.style.display = "none";
     }
 });
 

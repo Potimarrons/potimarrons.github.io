@@ -1,49 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Potimarrons - Users</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-        <script src="../src/supabase.js" defer></script>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div class="header">
-            <a class="icon home" href="../admin/index.html"><i class="fa-solid fa-reply"></i></a>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potimarrons – Utilisateurs</title>
+
+    <link rel="icon" href="../src/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="../src/supabase.js" defer></script>
+</head>
+
+<body>
+    <!-- LOADER -->
+    <div id="main-loader">
+        <div class="loader-box">
+            <div class="loader-title">Les potimarrons</div>
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Vérification en cours…</p>
+        </div>
+    </div>
+
+    <!-- CONTENEUR PRINCIPAL -->
+    <main class="main-container">
+
+        <!-- HEADER -->
+        <header class="main-header">
+            <a class="back-link" href="../admin/index.html">
+                <i class="fa-solid fa-reply"></i>
+            </a>
+            <h1 class="main-title">Utilisateurs</h1>
+            <p class="main-subtitle">Zone administrateur</p>
+            <div class="divider"></div>
+        </header>
+
+        <!-- CHARGEMENT -->
+        <section id="access-waiting" class="main-card">
+            <h2>Chargement…</h2>
+            <p>Nous vérifions votre session.</p>
+        </section>
+
+        <!-- ACCÈS REFUSÉ -->
+        <section id="access-refused" class="main-card" style="display:none;">
+            <h2>Accès refusé</h2>
+            <p>Vous n'avez pas les droits administrateurs.</p>
+        </section>
+
+        <!-- PANEL ADMIN -->
+        <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Liste des utilisateurs</h2>
-        </div>
+            <p>Accès réservé aux administrateurs.</p>
 
-        <div id="panel" class="panel" style="display: none;">
-            <h2>Voici la liste des utilisateurs</h2>
-            <p>Vous aurez besoin de droits administrateurs pour accéder à cette page.</p>
-            <span class="---"></span>
-            <div class="users-box" id="users-box">
-            </div>
-        </div>
+            <div id="users-box" class="users-box"></div>
+        </section>
 
-        <div id="show-user-info" class="show-user-info" style="display: none;">
-            <h3>Voici les informations de l'utilisateur : <span id="session-id"></span></h3>
+        <!-- INFOS UTILISATEUR -->
+        <section id="show-user-info" class="main-card" style="display:none;">
+            <h2>Détails utilisateur</h2>
+            <p><strong>Pseudo :</strong> <span id="session-id"></span></p>
             <p><strong>Email :</strong> <span id="user-email"></span></p>
-            <p><strong>Utilisateur créé le :</strong> <span id="user-created-at"></span></p>
-            <p><strong>Dernière connexion le :</strong> <span id="user-connected-at"></span></p>
-            <p><strong>Admin :</strong> <span id="user-admin">chargement...</span></p>
-        </div>
+            <p><strong>Créé le :</strong> <span id="user-created-at"></span></p>
+            <p><strong>Dernière connexion :</strong> <span id="user-connected-at"></span></p>
+            <p><strong>Rank :</strong> <span id="user-rank"></span></p>
+        </section>
 
-        <div class="access-refused" id="access-refused" style="display: none;">
-            <h3>Accès refusé</h3>
-            <p>Vous n'avez pas les droits administrateurs pour accéder à cette page.</p>
-        </div>
+    </main>
 
-        <div class="access-waiting" id="access-waiting">
-            <h3>chargement...</h3>
-            <p>Nous chargons votre session...</p>
-        </div>
-        <a class="link login" href="../passerelle/index.html"><i class="fa-solid fa-user"></i></a>
-    </body>
-    <script type="module" src="script.js"></script>
-    <script src="../src/inspect_script.js"></script>
-    <script type="module" src="../src/path_checker.js"></script>
+    <!-- LOGIN -->
+    <a class="login-link" href="../passerelle/index.html">
+        <i class="fa-solid fa-user"></i>
+    </a>
+
+</body>
+
+<script type="module" src="script.js"></script>
+<script src="../src/inspect_script.js"></script>
+<script type="module" src="../src/path_checker.js"></script>
+
 </html>

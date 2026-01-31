@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Potimarrons - Admin</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-        <script src="../src/supabase.js" defer></script>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div class="header">
-            <a class="icon home" href="../index.html"><i class="fa-solid fa-house-user"></i></a>
-            <h2>Panel Admin</h2>
-        </div>
 
-        <div id="panel" class="panel" style="display: none;">
-            <h2>Voici le panel admin</h2>
-            <p>Si vous avez les droits administrateurs, vous pourrez utiliser les boutons ci-dessous.</p>
-            <span class="---"></span>
-            <div class="box">
-                <h3>Gestion des utilisateurs</h3>
-                <button onclick="see_users()">Voir la liste des utilisateurs</button>
-                <button onclick="promote()">Promouvoir un utilisateur</button>
-                <button onclick="unpromote()">Dégrader un utilisateur</button>
-                <div class="super-admin" id="super-admin" style="display: none;">
-                    <button onclick="remove_admin()">Supprimer un administrateur</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potimarrons - Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="../src/supabase.js" defer></script>
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div id="gate-loader">
+        <div class="loader-box">
+            <div class="loader-neon">Potimarrons - Admin</div>
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Vérification en cours…</p>
+        </div>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <main class="container">
+
+        <div class="neon">Potimarrons - Admin</div>
+        <div class="subtitle">Accès réservé aux administrateurs</div>
+        <div class="divider"></div>
+
+        <!-- PANEL ADMIN -->
+        <div id="panel" class="card" style="display:none;">
+            <h2>Gestion des utilisateurs</h2>
+            <p>Utilisez les boutons ci-dessous pour gérer vos utilisateurs.</p>
+
+            <div class="admin-buttons">
+                <button onclick="see_users()"><i class="fa-solid fa-users"></i> Voir la liste</button>
+                <button onclick="promote()"><i class="fa-solid fa-arrow-up"></i> Promouvoir</button>
+                <button onclick="unpromote()"><i class="fa-solid fa-arrow-down"></i> Dégrader</button>
+                <div class="super-admin" id="super-admin" style="display:none;">
+                    <button onclick="remove_admin()"><i class="fa-solid fa-ban"></i> Supprimer admin</button>
                 </div>
             </div>
         </div>
 
-        <div class="access-refused" id="access-refused" style="display: none;">
-            <h3>Accès refusé</h3>
-            <p>Vous n'avez pas les droits administrateurs pour accéder à cette page.</p>
+        <!-- ACCÈS REFUSÉ -->
+        <div id="access-refused" class="card" style="display:none;">
+            <h2>Accès refusé</h2>
+            <p>Cette zone est réservée au personnel autorisé.</p>
         </div>
 
-        <div class="access-waiting" id="access-waiting">
-            <h3>chargement...</h3>
-            <p>Nous chargons votre session...</p>
+        <!-- LOADING SESSION -->
+        <div id="access-waiting" class="card" style="display:flex;">
+            <h2>Chargement...</h2>
+            <p>Nous vérifions votre session...</p>
         </div>
-        <a class="link login" href="../passerelle/index.html"><i class="fa-solid fa-user"></i></a>
-    </body>
-    <script src="../src/inspect_script.js"></script>
-    <script type="module" src="script.js" defer></script>
-    <script type="module" src="../src/path_checker.js"></script>
+
+    </main>
+
+</body>
+
+<script src="../src/inspect_script.js"></script>
+<script type="module" src="script.js" defer></script>
+<script type="module" src="../src/path_checker.js"></script>
+
 </html>
