@@ -67,10 +67,35 @@ window.signup = async function () {
         return;
     }
 
-    if (pseudo.value.length < 6 || pseudo.value.length > 20) {
-        alert("Le pseudo doit contenir entre 6 et 20 caractères.");
+    /*if (password.length < 8) {
+        alert("Votre mot de passe doit faire au minimum 8 caractères.")
         return;
-    } 
+    }
+
+    if (!/[a-z]/.test(password.value)) {
+        alert("Votre mot de passe doit contenir au moins une lettre minuscule.");
+        return;
+    }
+
+    if (!/[A-Z]/.test(password.value)) {
+        alert("Votre mot de passe doit contenir au moins une lettre majuscule.");
+        return;
+    }
+
+    if (!/[0-9]/.test(password.value)) {
+        alert("Votre mot de passe doit contenir au moins un chiffre.");
+        return;
+    }
+
+    if (!/[^a-zA-Z0-9]/.test(password.value)) {
+        alert("Votre mot de passe doit contenir au moins un caractère spécial.");
+        return;
+    }*/
+
+    if (pseudo.value.length < 6 || pseudo.value.length > 20) {
+        alert("Le pseudo doit contenir entre 8 et 20 caractères.");
+        return;
+    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.value)) {
@@ -94,8 +119,8 @@ window.signup = async function () {
         }
         return;
     }
-    
-    const { signupError } = await sb.auth.signUp({
+
+    const { error: signupError } = await sb.auth.signUp({
         email: email.value.toLowerCase(),
         password: password.value
     });
@@ -105,15 +130,19 @@ window.signup = async function () {
             alert("Cet email est déjà utilisé.<br>Déjà un compte ? Connectez-vous !");
         } else if (signupError.message === "Unable to validate email address: invalid format") {
             alert("Format d'email invalide. Veuillez réessayer avec une adresse email valide.");
-        } else if (signupError.message.includes("Password should be at least") || signupError.message.includes("Password should contain at least")) {
+        } else if (signupError.message.includes("Password should be at least") || signupError.message.includes("Password should contain at least") || signupError.message.includes("Unprocessable Content")) {
             alert("Le mot de passe ne remplit pas les critères de sécurité. Il doit contenir au moins 8 caractères et doit contenir au moins une lettre majuscule, une lettre minuscule, un charactère spécial et un chiffre.");
         } else {
             alert("Une erreur est survenue. Réessaie plus tard.");
         }
+        await sb.rpc(
+            'rollback_user',
+            { p_token: token.value, p_email: email.value }
+        );
         return;
     } else {
         alert("Le compte à l'email " + email.value.toLowerCase() + " a été créé avec succès ! Vous pouvez maintenant vous connecter.");
-        
+
         email.value = "";
         password.value = "";
         password2.value = "";
