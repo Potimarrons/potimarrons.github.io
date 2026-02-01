@@ -201,27 +201,3 @@ body:not(.validated) .container {
     opacity: 0;
     pointer-events: none;
 }
-
-/* RESPONSIVE */
-@media(max-width:768px) {
-    .container {
-        padding: 2rem;
-    }
-
-    .neon {
-        font-size: 1.8rem;
-    }
-
-    .subtitle {
-        font-size: 0.85rem;
-    }
-
-    .card h2 {
-        font-size: 1.2rem;
-    }
-
-    .admin-buttons button {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
-    }
-}

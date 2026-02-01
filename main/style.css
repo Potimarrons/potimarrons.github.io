@@ -41,7 +41,25 @@ body:not(.validated) .main-container {
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
+.back-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--text);
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.back-link:hover {
+    transform: translateY(-2px);
+}
+
 /* HEADER */
+.main-header {
+    position: relative;
+    text-align: center;
+}
+
 .main-title {
     color: var(--red);
     font-size: 2rem;
@@ -165,28 +183,4 @@ body:not(.validated) .main-container {
 
 .admin-button:hover {
     background: var(--orange);
-}
-
-/* RESPONSIVE */
-@media(max-width:768px) {
-    .main-container {
-        padding: 2rem;
-    }
-
-    .main-subtitle {
-        font-size: 0.85rem;
-    }
-
-    .main-card h2 {
-        font-size: 1.2rem;
-    }
-
-    .main-actions button {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
-    }
-
-    .admin-button {
-        font-size: 0.85rem;
-    }
 }

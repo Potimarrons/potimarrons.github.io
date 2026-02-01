@@ -136,6 +136,7 @@ footer {
     cursor: pointer;
     font-size: 0.95rem;
     transition: background 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .secret-form button:hover {
@@ -167,104 +168,6 @@ footer {
 
 .secret-form a:visited:hover {
     color: var(--orange);
-}
-
-/* ========== RESPONSIVE ========== */
-/* Tablette */
-@media (max-width: 1024px) {
-    .neon {
-        font-size: 2.6rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-
-    .text {
-        font-size: 1rem;
-    }
-
-    .tagline {
-        font-size: 0.95rem;
-    }
-
-    .secret-form h2 {
-        font-size: 1.6rem;
-    }
-
-    .secret-form input,
-    .secret-form button {
-        font-size: 1rem;
-        padding: 0.7rem;
-        margin-bottom: 1rem;
-    }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .neon {
-        font-size: 2.2rem;
-    }
-
-    .subtitle {
-        font-size: 0.95rem;
-    }
-
-    .text {
-        font-size: 0.9rem;
-    }
-
-    .tagline {
-        font-size: 0.85rem;
-    }
-
-    .secret-form {
-        padding: 1.5rem;
-    }
-
-    .secret-form h2 {
-        font-size: 1.4rem;
-    }
-
-    .secret-form input,
-    .secret-form button {
-        font-size: 0.9rem;
-        padding: 0.6rem;
-    }
-}
-
-/* Très petit écran */
-@media (max-width: 480px) {
-    .neon {
-        font-size: 1.8rem;
-    }
-
-    .subtitle {
-        font-size: 0.85rem;
-    }
-
-    .text {
-        font-size: 0.8rem;
-    }
-
-    .tagline {
-        font-size: 0.75rem;
-    }
-
-    .secret-form {
-        width: 90%;
-        padding: 1.2rem;
-    }
-
-    .secret-form h2 {
-        font-size: 1.2rem;
-    }
-
-    .secret-form input,
-    .secret-form button {
-        font-size: 0.85rem;
-        padding: 0.5rem;
-    }
 }
 
 #gate-loader {

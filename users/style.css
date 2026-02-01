@@ -167,26 +167,6 @@ body:not(.validated) .main-container {
     pointer-events: none;
 }
 
-/* RESPONSIVE */
-@media(max-width:768px) {
-    .main-container {
-        padding: 2rem;
-    }
-
-    .main-subtitle {
-        font-size: 0.85rem;
-    }
-
-    .main-card h2 {
-        font-size: 1.2rem;
-    }
-
-    .main-actions button {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
-    }
-}
-
 #show-user-info a {
     color: #9bffb0;
     text-decoration: none;
