@@ -3,30 +3,33 @@ import { checkPath } from "../src/path_checker.js";
 
 const ranks = {
     0: "Pas un tacos",
-    1: "Petit Tacos", 
-    2: "Le classique T1", 
+    1: "Petit Tacos",
+    2: "Le classique T1",
     3: "Simple, un T2",
     4: "Le bon T4",
     5: "T4 bien géchar"
 }
 
-async function display_info(email) {
-    document.getElementById("session-id").innerHTML = "chargement...";
-    document.getElementById("user-email").textContent = "chargement...";
-    document.getElementById("user-created-at").textContent = "chargement...";
-    document.getElementById("user-connected-at").textContent = "chargement...";
-    document.getElementById("user-rank").innerHTML = "chargement...";
+async function initApp() {
+    globalThis.display_info = async function (email) {
+        document.getElementById("session-id").innerHTML = "chargement...";
+        document.getElementById("user-email").textContent = "chargement...";
+        document.getElementById("user-created-at").textContent = "chargement...";
+        document.getElementById("user-connected-at").textContent = "chargement...";
+        document.getElementById("user-rank").innerHTML = "chargement...";
+        document.getElementById("user-token").innerHTML = "chargement...";
 
-    const userData = await getUserData(email);
+        const userData = await getUserData(email);
 
-    document.getElementById("show-user-info").style.display = "block";
+        document.getElementById("show-user-info").style.display = "block";
 
-    document.getElementById("session-id").innerHTML = "<span style=\"color: #d1ffe7ff;\">" + userData.pseudo + "</span>";
-    document.getElementById("user-email").textContent = userData.email;
-    document.getElementById("user-created-at").textContent = new Date(userData.created_at).toLocaleString("fr-FR");
-    document.getElementById("user-connected-at").textContent = new Date(userData.last_sign_in_at).toLocaleString("fr-FR");
-
-    document.getElementById("user-rank").innerHTML = ranks[userData.rank];
+        document.getElementById("session-id").innerHTML = "<span style=\"color: #d1ffe7ff;\">" + userData.pseudo + "</span>";
+        document.getElementById("user-email").textContent = userData.email;
+        document.getElementById("user-created-at").textContent = new Date(userData.created_at).toLocaleString("fr-FR");
+        document.getElementById("user-connected-at").textContent = new Date(userData.last_sign_in_at).toLocaleString("fr-FR");
+        document.getElementById("user-rank").innerHTML = ranks[userData.rank];
+        document.getElementById("user-token").innerHTML = "<span style=\"color: rgb(143, 143, 143);\">" + userData.token_used + "</span>";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -36,6 +39,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.classList.add("validated");
 
     const users_box = document.getElementById("users-box");
+
+    await initApp();
 
     if (hasAccess) {
         const { data: users, error } = await sb

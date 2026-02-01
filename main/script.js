@@ -1,4 +1,4 @@
-import { getUserData, is_admin } from "../src/admin.js";
+import { getUserData } from "../src/admin.js";
 import { checkPath } from "../src/path_checker.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.classList.add("validated");
 
     if (userData.rank >= 1) {
+        await initApp();
         document.getElementById("staff-panel").style.display = "block";
         document.getElementById("access-loading").style.display = "none";
         document.getElementById("access-denied").style.display = "none";
@@ -22,8 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-window.redirect = async function () {
-    window.location.href = ("../admin/index.html");
+async function initApp() {
+    window.redirect = async function () {
+        window.location.href = ("../admin/index.html");
+    }
 }
 
 checkPath(1);
