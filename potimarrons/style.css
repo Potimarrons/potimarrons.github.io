@@ -41,6 +41,12 @@ body:not(.validated) .main-container {
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
+/* HEADER */
+.main-header {
+    position: relative;
+    text-align: center;
+}
+
 .back-link {
     position: absolute;
     left: 0;
@@ -54,12 +60,6 @@ body:not(.validated) .main-container {
     transform: translateY(-2px);
 }
 
-/* HEADER */
-.main-header {
-    position: relative;
-    text-align: center;
-}
-
 .main-title {
     color: var(--red);
     font-size: 2rem;
@@ -68,7 +68,7 @@ body:not(.validated) .main-container {
 
 .main-subtitle {
     color: var(--orange);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -93,44 +93,34 @@ body:not(.validated) .main-container {
 
 .main-card h2 {
     color: var(--red);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
 }
 
 .main-card p {
     color: var(--muted);
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.5rem;
 }
 
-/* ACTIONS */
-.main-actions {
+/* KEBABS */
+.kebabs-box {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 
-.main-actions button {
+.kebab-button {
     background: var(--bg);
     border: 1px solid #333;
     color: var(--text);
-    padding: 0.7rem 1.4rem;
-    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 }
-
-.main-actions button:hover {
+.kebab-button:hover {
     background: var(--red);
     transform: translateY(-2px);
-}
-
-.super-admin button {
-    background: var(--red);
-    box-shadow: 0 0 10px rgba(192, 57, 43, 0.4);
-}
-
-.super-admin button:hover {
-    background: var(--orange);
 }
 
 /* LOADER */
@@ -177,19 +167,22 @@ body:not(.validated) .main-container {
     pointer-events: none;
 }
 
-.admin-button {
-    width: 100%;
-    padding: 0.6rem;
-    background: var(--red);
-    border: none;
-    color: #fff;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.3s ease;
-    display: none;
+#show-kebab-info a {
+    color: #9bffb0;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.admin-button:hover {
-    background: var(--orange);
+#show-kebab-info a:hover {
+    color: var(--orange);
+}
+
+#show-kebab-info a:visited {
+    color: #9bffb0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#show-kebab-info a:visited:hover {
+    color: var(--orange);
 }

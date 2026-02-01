@@ -41,6 +41,12 @@
             <p>Utilisez les boutons ci-dessous pour gérer vos kebabs.</p>
 
             <div class="main-actions">
+                <button onclick="see_kebabs()"><i class="fa-solid fa-list"></i> Voir la liste</button>
+                <button onclick="add_kebab()"><i class="fa-solid fa-plus"></i> Ajouter un kebab</button>
+                <button onclick="edit_kebab()"><i class="fa-solid fa-pen"></i> Modifier un kebab</button>
+                <div class="super-admin" id="super-admin" style="display:none;">
+                    <button onclick="remove_kebab()"><i class="fa-solid fa-trash"></i> Supprimer un kebab</button>
+                </div>
             </div>
         </section>
 
