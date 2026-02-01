@@ -39,14 +39,36 @@
         <div id="panel" class="card" style="display:none;">
             <h2>Gestion des utilisateurs</h2>
             <p>Utilisez les boutons ci-dessous pour gérer vos utilisateurs.</p>
-        
+
             <div class="admin-buttons">
                 <button onclick="see_users()"><i class="fa-solid fa-users"></i> Voir la liste</button>
                 <button onclick="promote()"><i class="fa-solid fa-arrow-up"></i> Promouvoir</button>
                 <button onclick="unpromote()"><i class="fa-solid fa-arrow-down"></i> Dégrader</button>
-                <div class="super-admin" id="super-admin" style="display:none;">
-                    <button onclick="remove_admin()"><i class="fa-solid fa-ban"></i> Supprimer admin</button>
-                </div>
+            </div>
+            <div class="super-admin" id="super-admin" style="display:none;">
+                <button onclick="ban()"><i class="fa-solid fa-ban"></i> Bannir un utilisateur</button>
+            </div>
+        </div>
+
+        <div id="panel" class="card" style="display:none;">
+            <h2>Gestion des tokens</h2>
+            <p>Utilisez les boutons ci-dessous pour gérer vos tokens.</p>
+
+            <div class="admin-buttons">
+            </div>
+            <div class="super-admin" id="super-admin" style="display:none;">
+                <button onclick="see_unused_tokens()"><i class="fa-solid fa-key"></i> Voir les tokens inutilisés</button>
+            </div>
+        </div>
+
+        <div id="panel" class="card" style="display:none;">
+            <h2>Gestion des kebabs</h2>
+            <p>Utilisez les boutons ci-dessous pour gérer vos kebabs.</p>
+
+            <div class="admin-buttons">
+            </div>
+            <div class="super-admin" id="super-admin" style="display:none;">
+                <button onclick="see_unused_tokens()"><i class="fa-solid fa-key"></i> Voir les tokens inutilisés</button>
             </div>
         </div>
 
@@ -63,6 +85,18 @@
         </div>
 
     </main>
+
+    <!-- POPUP TOKENS -->
+    <div id="tokens-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <h2>Tokens inutilisés</h2>
+            <div id="tokens-list">
+                <p>Chargement...</p>
+            </div>
+            <button id="create-token-btn" title="Créer un nouveau token" onclick="create_token()"><i class="fa-solid fa-plus"></i></button>
+            <button class="popup-close" onclick="closeTokensPopup()">Fermer</button>
+        </div>
+    </div>
 
 </body>
 

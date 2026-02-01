@@ -51,4 +51,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-checkPath(1);
+checkPath(6);
