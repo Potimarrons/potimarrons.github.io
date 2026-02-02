@@ -11,7 +11,7 @@ const ranks = {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const userData = await getUserData("");
+    globalThis.userData = await getUserData("");
     const panels = document.querySelectorAll("#panel");
     const superAdmin = document.querySelectorAll(".super-admin");
     const accessRefused = document.getElementById("access-refused");
@@ -197,6 +197,9 @@ async function initApp() {
 
         list.innerHTML = "";
         data.forEach(t => {
+            if (new Date(t.expires_at).getTime() < Date.now()) {
+                return;
+            }
             const div = document.createElement("div");
             div.className = "token-item";
 
@@ -206,13 +209,22 @@ async function initApp() {
                     <code>${t.token}</code><br>
                     <small>Expire le ${new Date(t.expires_at).toLocaleString("fr-FR")}</small>
                 </span>
-                <button class="token-delete" onclick="delete_token('${t.token}')">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
             `;
+
+            if (userData.rank >= 5) {
+                div.innerHTML += `
+                    <button class="token-delete" onclick="delete_token('${t.token}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+            }
 
             list.appendChild(div);
         });
+
+        if (list.innerHTML === "") {
+            list.innerHTML = "<p>Aucun token inutilisé.</p>";
+        }
 
     }
 
