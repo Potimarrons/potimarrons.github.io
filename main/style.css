@@ -266,7 +266,7 @@ body:not(.validated) .main-container {
 }
 
 /* FORM INPUTS - KEBAB */
-#kebabs-form input {
+#kebabs-form input, #kebabs-form textarea {
     width: 100%;
     background: var(--bg);
     border: 1px solid #333;
@@ -279,12 +279,12 @@ body:not(.validated) .main-container {
 }
 
 /* Placeholder (si tu en ajoutes plus tard) */
-#kebabs-form input::placeholder {
+#kebabs-form input::placeholder, #kebabs-form textarea::placeholder {
     color: var(--muted);
 }
 
 /* Focus */
-#kebabs-form input:focus {
+#kebabs-form input:focus, #kebabs-form textarea:focus {
     border-color: var(--red);
     box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.25);
 }
@@ -332,4 +332,11 @@ body:not(.validated) .main-container {
     color: var(--bg);
     box-shadow: 0 0 15px rgba(241, 196, 15, 0.7);
     transform: scale(1.05) translate(-50%, -50%);
+}
+
+.char-counter {
+    float: right;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
 }

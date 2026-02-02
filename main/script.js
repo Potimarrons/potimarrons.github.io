@@ -58,6 +58,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function initApp() {
+    document.getElementById("kebab-title-input").addEventListener("input", () => {
+        document.getElementById("title-counter").textContent = `${document.getElementById("kebab-title-input").value.length}/${20}`;
+    });
+
+    document.getElementById("kebab-short-desc-input").addEventListener("input", () => {
+        document.getElementById("short-desc-counter").textContent = `${document.getElementById("kebab-short-desc-input").value.length}/${200}`;
+    });
+
     window.openKebabForm = async function (action) {
         if (action == "add") {
             document.getElementById("kebab-title-input").value = "";
@@ -84,6 +92,11 @@ async function initApp() {
         const users = document.getElementById("kebab-users-input").value;
         const short_desc = document.getElementById("kebab-short-desc-input").value;
         const full_desc = document.getElementById("kebab-full-desc-input").value;
+
+        if (title == "" || users == "" || full_desc == "") {
+            alert("Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
 
         if (current_kebab == null) {
             const { data: { session }, error: sessionError } = await sb.auth.getSession();
