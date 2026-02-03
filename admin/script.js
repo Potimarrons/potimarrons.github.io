@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("gate-loader").classList.add("hide");
     document.body.classList.add("validated");
 
-    if (userData.rank >= 4) {
+    if (userData.rank >= 3) {
         await initApp();
         if (userData.rank >= 5) {
             superAdmin.forEach(elem => {
@@ -203,6 +203,8 @@ async function initApp() {
         const popup = document.getElementById("tokens-popup");
         const list = document.getElementById("tokens-list");
 
+        document.getElementById("create-token-btn").style.display = userData.rank >= 4 ? "block" : "none";
+
         popup.style.display = "block";
         list.innerHTML = "<p>Chargement...</p>";
 
@@ -327,4 +329,4 @@ async function initApp() {
 }
 
 
-checkPath(4);
+checkPath(3);

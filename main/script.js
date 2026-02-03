@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("staff-panel").style.display = "none";
     }
 
-    if (userData.rank >= 4) {
+    if (userData.rank >= 3) {
         document.getElementById("admin-button").style.display = "block";
     }
 });

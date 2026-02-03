@@ -246,9 +246,8 @@ body:not(.validated) .container {
     margin-bottom: 1rem;
 }
 
-#tokens-list {
+#tokens-list, #users-inside-list {
     overflow-y: auto;
-    margin-bottom: 1.5rem;
 }
 
 #tokens-list p {
@@ -297,6 +296,7 @@ body:not(.validated) .container {
 }
 
 #tokens-popup #create-token-btn {
+    margin-top: 1rem;
     background: var(--bg);
     border: 1px solid var(--yellow);
     color: var(--yellow);
