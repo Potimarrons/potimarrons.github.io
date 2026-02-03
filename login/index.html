@@ -54,10 +54,10 @@
             <div id="login-view" style="display:none;">
                 <h2>Accès aux Potimarrons</h2>
                 <p><a href="../signup/index.html">Pas de compte ? Créer un compte</a></p>
-                <input id="email" type="email" placeholder="Email" autocomplete="off" />
-                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off" />
+                <input id="email" type="email" placeholder="Email" autocomplete="off"/>
+                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off"/>
 
-                <button onclick="login()">Se connecter</button>
+                <button type="submit" onclick="login()">Se connecter</button>
             </div>
 
             <!-- USER INFO -->
@@ -70,8 +70,8 @@
                 <p>Dernière connexion : <span id="user-connected-at"></span></p>
                 <p>Rank : <span id="user-rank"></span></p>
 
-                <button onclick="redirect()">Continuer</button>
-                <button onclick="logout()">Se déconnecter</button>
+                <button type="button" onclick="redirect()">Continuer</button>
+                <button type="reset" onclick="logout()">Se déconnecter</button>
             </div>
 
         </div>

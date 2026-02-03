@@ -223,6 +223,7 @@ body:not(.validated) .container {
     justify-content: center;
     align-items: center;
     z-index: 3000;
+    overflow-y: auto;
 }
 
 .popup-content {
@@ -319,4 +320,112 @@ body:not(.validated) .container {
     color: var(--bg-alt);
     box-shadow: 0 0 10px rgba(241, 196, 15, 0.6);
     transform: scale(1.05) translate(-50%, -50%);
+}
+
+.user-item {
+    background: var(--bg);
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(192, 57, 43, 0.3);
+}
+
+.user-item span {
+    text-align: left;
+}
+
+.user-item strong {
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.user-item small {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.user-info {
+    background: transparent;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info:hover {
+    background: var(--orange);
+    color: var(--bg);
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.6);
+}
+
+#user-info {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+#user-info p {
+    background: var(--bg);
+    border: 1px solid #222;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-info strong {
+    color: var(--orange);
+    font-weight: 600;
+}
+
+#user-info span {
+    color: var(--text);
+    font-family: monospace;
+    margin-left: 1rem;
+    text-align: right;
+}
+
+/* Highlight spécifique */
+#user-token {
+    color: #8f8f8f;
+    font-size: 0.85rem;
+}
+
+#user-rank-select {
+    background: var(--bg);
+    border: 1px solid var(--orange);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+#user-rank-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#users-inside-list {
+    margin-bottom: 1rem;
 }
