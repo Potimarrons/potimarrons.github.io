@@ -89,16 +89,19 @@
             <div id="kebab-form-info">
                 <p>
                     <strong>Titre (20 caractères maximum, obligatoire) :</strong>
-                    <input type="text" name="Titre du kebab" id="kebab-title-input" maxlength="20" required>
+                    <input type="text" name="Titre du kebab" id="kebab-title-input" maxlength="20" 
+                        placeholder="Tapez le titre ici..." required>
                     <span class="char-counter" id="title-counter">0/20</span>
                 </p>
                 <p>
                     <strong>Personnes concernées (obligatoire) :</strong>
-                    <input type="text" name="Personnes concernées" id="kebab-users-input" required>
+                    <input type="text" name="Personnes concernées" id="kebab-users-input"
+                        placeholder="Tapez les personnes concernées ici..." required>
                 </p>
                 <p>
                     <strong>Courte description (200 caractères maximum) :</strong>
-                    <input type="text" name="Courte description" id="kebab-short-desc-input" maxlength="200">
+                    <textarea id="kebab-short-desc-input" name="Courte description" rows="4"
+                        placeholder="Tapez la courte description ici..." maxlength="200" required></textarea>
                     <span class="char-counter" id="short-desc-counter">0/200</span>
                 </p>
                 <p>
