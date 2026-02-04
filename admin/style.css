@@ -12,92 +12,132 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 body {
     min-height: 100vh;
     background: radial-gradient(circle at top, #1b1b1b, var(--bg));
     color: var(--text);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: system-ui, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
 }
 
-body:not(.validated) .container {
-    opacity: 0;
-    pointer-events: none;
+body:not(.validated) .main-container {
+    display: none;
 }
 
-/* Container principal */
-.container {
+/* CONTAINER */
+.main-container {
     background: var(--bg-alt);
-    border: 1px solid #222;
     border-radius: 12px;
     padding: 2.5rem;
-    max-width: 50vw;
+    max-width: 80vw;
     width: 100%;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+.back-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--text);
+    font-size: 2rem;
+    text-decoration: none;
+    transition: transform 0.5s;
+}
+.back-link:hover {
+    transform: translateY(-0.5vh);
+}
+
+/* HEADER */
+.main-header {
+    position: relative;
     text-align: center;
 }
 
-/* Neon header */
-.neon {
-    font-size: 2rem;
-    font-weight: 700;
+.main-title {
     color: var(--red);
-    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
-    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(192,57,43,0.4);
 }
 
-.subtitle {
+.main-subtitle {
     color: var(--orange);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     margin-bottom: 1.5rem;
+}
+
+.divider {
+    height: 0.3vh;
+    width: 8vw;
+    background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
+    margin: 0 auto 2rem;
+}
+
+/* CARDS */
+.main-card {
+    background: var(--bg-alt);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+h2 {
+    color: var(--red);
+}
+
+.popup h2 {
+    margin-bottom: 0.8rem;
+}
+/* LOADER */
+#main-loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader-title {
+    color: var(--red);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.loader-spinner {
+    width: 10vmin;
+    height: 10vmin;
+    border: 1vh solid #333;
+    border-top-color: var(--yellow);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.loader-text {
+    color: var(--muted);
+    font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
-.divider {
-    height: 2px;
-    width: 6vw;
-    background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
-    margin: 0 auto 2rem;
-    border-radius: 2px;
+.hide {
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* CARDS PANEL / LOADING / REFUSÉ */
-.card {
-    background: var(--bg-alt);
-    border: 1px solid #222;
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.7);
-}
-
-.card h2 {
-    margin-bottom: 1rem;
-    color: var(--red);
-}
-
-.card p {
-    color: var(--muted);
-    margin-bottom: 1rem;
-}
-
-/* BOUTONS ADMIN */
-.admin-buttons, .super-admin {
+.admin-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -124,97 +164,6 @@ body:not(.validated) .container {
     transform: translateY(-2px);
 }
 
-.super-admin button {
-    background: var(--red);
-    box-shadow: 0 0 10px rgba(192, 57, 43, 0.4);
-    padding: 0.7rem 1.5rem;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid #333;
-    color: var(--text);
-    border-radius: 6px;
-}
-
-.super-admin button:hover {
-    background: var(--orange);
-    transform: translateY(-2px);
-}
-
-.back-link {
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--text);
-    font-size: 1.4rem;
-    text-decoration: none;
-    transition: transform 0.2s;
-}
-.back-link:hover {
-    transform: translateY(-2px);
-}
-
-/* HEADER */
-.main-header {
-    position: relative;
-    text-align: center;
-}
-
-/* LOADER */
-#gate-loader {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    transition: opacity 0.5s ease;
-}
-
-.loader-box {
-    text-align: center;
-}
-
-.loader-neon {
-    color: var(--red);
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 5px rgba(192, 57, 43, 0.6), 0 0 15px rgba(192, 57, 43, 0.4);
-}
-
-.loader-spinner {
-    width: 8vmin;
-    height: 8vmin;
-    border: 3px solid #333;
-    border-top-color: var(--yellow);
-    border-radius: 50%;
-    margin: 0 auto 1rem;
-    animation: spin 1s linear infinite;
-}
-
-.loader-text {
-    font-size: 0.85rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.hide {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* MODAL */
 .popup {
     position: fixed;
     inset: 0;
@@ -222,7 +171,7 @@ body:not(.validated) .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3000;
+    z-index: 100;
     overflow-y: auto;
 }
 
@@ -231,8 +180,8 @@ body:not(.validated) .container {
     border: 1px solid #333;
     border-radius: 12px;
     padding: 2rem;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 45vw;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
     text-align: center;
     left: 50%;
@@ -241,16 +190,7 @@ body:not(.validated) .container {
     transform: translate(-50%, -50%);
 }
 
-.popup-content h2 {
-    color: var(--red);
-    margin-bottom: 1rem;
-}
-
-#tokens-list, #users-inside-list {
-    overflow-y: auto;
-}
-
-#tokens-list p {
+#tokens-list p, #users-list p {
     margin-bottom: 1.5rem;
 }
 
@@ -275,6 +215,7 @@ body:not(.validated) .container {
     border-radius: 6px;
     cursor: pointer;
     color: var(--text);
+    margin-top: 1rem;
 }
 
 .popup-close:hover {
@@ -296,29 +237,29 @@ body:not(.validated) .container {
 }
 
 #tokens-popup #create-token-btn {
-    margin-top: 1rem;
     background: var(--bg);
     border: 1px solid var(--yellow);
     color: var(--yellow);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     left: 50%;
     position: relative;
+    margin-top: 3rem;
     transform: translate(-50%, -50%);
 }
 
 #tokens-popup #create-token-btn:hover {
     background: var(--yellow);
-    color: var(--bg-alt);
-    box-shadow: 0 0 10px rgba(241, 196, 15, 0.6);
+    color: var(--bg);
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.7);
     transform: scale(1.05) translate(-50%, -50%);
 }
 
@@ -357,8 +298,8 @@ body:not(.validated) .container {
     background: transparent;
     border: 1px solid var(--orange);
     color: var(--orange);
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -405,7 +346,6 @@ body:not(.validated) .container {
     text-align: right;
 }
 
-/* Highlight spécifique */
 #user-token {
     color: #8f8f8f;
     font-size: 0.85rem;
@@ -428,4 +368,8 @@ body:not(.validated) .container {
 
 #users-inside-list {
     margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

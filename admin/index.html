@@ -6,76 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potimarrons - Admin</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="../src/supabase.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="../src/supabase.js" defer></script>
 </head>
 
 <body>
-
     <!-- LOADER -->
-    <div id="gate-loader">
+    <div id="main-loader">
         <div class="loader-box">
-            <div class="loader-neon">Potimarrons - Admin</div>
+            <div class="loader-title">Les potimarrons</div>
             <div class="loader-spinner"></div>
             <p class="loader-text">Vérification en cours…</p>
         </div>
     </div>
 
     <!-- MAIN PANEL -->
-    <main class="container">
+    <main class="main-container">
         <header class="main-header">
             <a class="back-link" href="../main/index.html">
                 <i class="fa-solid fa-reply"></i>
             </a>
-            <div class="neon">Potimarrons - Admin</div>
-            <div class="subtitle">Accès réservé aux administrateurs</div>
+            <h1 class="main-title">Potimarrons - Admin</h1>
+            <p class="main-subtitle">Accès réservé aux administrateurs</p>
             <div class="divider"></div>
         </header>
 
         <!-- PANEL ADMIN -->
-        <div id="panel" class="card" style="display:none;">
+        <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Gestion des utilisateurs du site</h2>
-            <p>Cliquez sur le bouton ci-dessous pour voir la liste des utilisateurs</p>
 
             <div class="admin-buttons">
                 <button onclick="see_users()"><i class="fa-solid fa-users"></i> Voir la liste des utilisateurs</button>
             </div>
-        </div>
+        </section>
 
-        <div id="panel" class="card" style="display:none;">
+        <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Gestion des tokens</h2>
-            <p>Cliquez sur le bouton ci-dessous pour voir la liste des tokens</p>
 
             <div class="admin-buttons">
                 <button onclick="see_unused_tokens()"><i class="fa-solid fa-key"></i> Voir les tokens
                     inutilisés</button>
             </div>
-        </div>
+        </section>
 
-        <div id="panel" class="card" style="display:none;">
+        <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Gestion des personnes impliquées dans les kebabs</h2>
-            <p>Cliquez sur le bouton ci-dessous pour voir la liste des personnes impliquées</p>
 
             <div class="admin-buttons">
                 <button onclick="see_users_inside()"><i class="fa-solid fa-users"></i> Voir les personnes 
                     impliquées</button>
             </div>
-        </div>
+        </section>
 
         <!-- ACCÈS REFUSÉ -->
-        <div id="access-refused" class="card" style="display:none;">
+        <section id="access-denied" class="main-card" style="display:none;">
             <h2>Accès refusé</h2>
             <p>Cette zone est réservée au personnel autorisé.</p>
-        </div>
+        </section>
 
-        <!-- LOADING SESSION -->
-        <div id="access-waiting" class="card" style="display:flex;">
+        <!-- EN ATTENTE -->
+        <section id="access-loading" class="main-card">
             <h2>Chargement...</h2>
             <p>Nous vérifions votre session...</p>
-        </div>
+        </section>
     </main>
 
     <!-- POPUP USERS -->

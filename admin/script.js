@@ -12,33 +12,20 @@ const ranks = {
 
 document.addEventListener("DOMContentLoaded", async () => {
     globalThis.userData = await getUserData("");
-    const panels = document.querySelectorAll("#panel");
-    const superAdmin = document.querySelectorAll(".super-admin");
-    const accessRefused = document.getElementById("access-refused");
-    const accessWaiting = document.getElementById("access-waiting");
-
-    document.getElementById("gate-loader").classList.add("hide");
-    document.body.classList.add("validated");
 
     if (userData.rank >= 3) {
         await initApp();
-        if (userData.rank >= 5) {
-            superAdmin.forEach(elem => {
-                elem.style.display = "flex";
-            });
-        }
-        panels.forEach(panel => {
-            panel.style.display = "block";
-        });
-        accessWaiting.style.display = "none";
-        accessRefused.style.display = "none";
+
+        document.querySelectorAll("#staff-panel").forEach(p => p.style.display = "block");
+        document.getElementById("access-loading").style.display = "none";
+        document.getElementById("access-denied").style.display = "none";
     } else {
-        accessRefused.style.display = "block";
-        accessWaiting.style.display = "none";
-        panels.forEach(panel => {
-            panel.style.display = "none";
-        });
+        document.getElementById("access-denied").style.display = "block";
+        document.getElementById("access-loading").style.display = "none";
+        document.querySelectorAll("#staff-panel").forEach(p => p.style.display = "none");
     }
+    document.getElementById("main-loader").classList.add("hide");
+    document.body.classList.add("validated");
 });
 
 async function initApp() {

@@ -8,9 +8,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../src/supabase.js" defer></script>
-    <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -23,26 +24,22 @@
         </div>
     </div>
 
-    <!-- CONTENU -->
+    <!-- MAIN PANEL -->
     <main class="main-container">
-
         <header class="main-header">
             <a class="back-link" href="../login/index.html">
                 <i class="fa-solid fa-reply"></i>
             </a>
-            <h1 class="main-title">Accueil des potimarrons</h1>
-            <p class="main-subtitle">Réservé à l’équipe</p>
+            <h1 class="main-title">Potimarrons - Accueil</h1>
+            <p class="main-subtitle">Accès réservé à l’équipe</p>
             <div class="divider"></div>
         </header>
 
-        <!-- PANNEAU STAFF -->
+        <!-- PANEL ADMIN -->
         <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Voir les kebabs disponibles</h2>
-            <p>Voici la liste des kebabs disponibles.</p>
 
-            <div id="kebabs-box" class="kebabs-box">
-
-            </div>
+            <div id="kebabs-box" class="kebabs-box"></div>
             <button id="create-kebab-btn" title="Créer un nouveau kebab" onclick="openKebabForm('add')"><i
                     class="fa-solid fa-plus"></i></button>
         </section>
@@ -66,13 +63,37 @@
     <div id="kebabs-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Détails du Kebab</h2>
-            <div id="kebab-info">
-                <p><strong>Titre :</strong> <span id="kebab-title"></span></p>
-                <p><strong>Personnes concernées :</strong> <span id="kebab-users"></span></p>
-                <p><strong>Courte description :</strong> <span id="kebab-short-desc"></span></p>
-                <p><strong>Description complète :</strong> <span id="kebab-full-desc"></span></p>
-                <p><strong>Date de création :</strong> <span id="kebab-created"></span></p>
-                <p><strong>Dernière modification :</strong> <span id="kebab-last-edit"></span></p>
+            <div id="kebab-info" class="kebab-details">
+                <div class="kebab-field">
+                    <strong>Titre</strong>
+                    <div id="kebab-title" class="kebab-value"></div>
+                </div>
+
+                <div class="kebab-field">
+                    <strong>Personnes concernées</strong>
+                    <div id="kebab-users" class="kebab-value"></div>
+                </div>
+
+                <div class="kebab-field">
+                    <strong>Courte description</strong>
+                    <div id="kebab-short-desc" class="kebab-value"></div>
+                </div>
+
+                <div class="kebab-field">
+                    <strong>Description complète</strong>
+                    <div id="kebab-full-desc" class="kebab-value"></div>
+                </div>
+
+                <div class="kebab-field inline">
+                    <div>
+                        <strong>Date de création</strong>
+                        <div id="kebab-created" class="kebab-value"></div>
+                    </div>
+                    <div>
+                        <strong>Dernière modification</strong>
+                        <div id="kebab-last-edit" class="kebab-value"></div>
+                    </div>
+                </div>
             </div>
             <button id="open-form-kebab-btn" class="popup-close" onclick="openKebabForm('edit')"
                 style="display: none;">Modifier</button>
@@ -89,7 +110,7 @@
             <div id="kebab-form-info">
                 <p>
                     <strong>Titre (20 caractères maximum, obligatoire) :</strong>
-                    <input type="text" name="Titre du kebab" id="kebab-title-input" maxlength="20" 
+                    <input type="text" name="Titre du kebab" id="kebab-title-input" maxlength="20"
                         placeholder="Tapez le titre ici..." required>
                     <span class="char-counter" id="title-counter">0/20</span>
                 </p>

@@ -12,6 +12,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 body {
@@ -25,17 +26,15 @@ body {
 }
 
 body:not(.validated) .main-container {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 
 /* CONTAINER */
 .main-container {
     background: var(--bg-alt);
-    border: 1px solid #222;
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 2.5rem;
-    max-width: 52vw;
+    max-width: 80vw;
     width: 100%;
     text-align: center;
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
@@ -46,12 +45,12 @@ body:not(.validated) .main-container {
     left: 0;
     top: 0;
     color: var(--text);
-    font-size: 1.4rem;
+    font-size: 2rem;
     text-decoration: none;
-    transition: transform 0.2s;
+    transition: transform 0.5s;
 }
 .back-link:hover {
-    transform: translateY(-2px);
+    transform: translateY(-0.5vh);
 }
 
 /* HEADER */
@@ -75,8 +74,8 @@ body:not(.validated) .main-container {
 }
 
 .divider {
-    height: 2px;
-    width: 6vw;
+    height: 0.3vh;
+    width: 8vw;
     background: linear-gradient(to right, var(--red), var(--yellow), var(--red));
     margin: 0 auto 2rem;
 }
@@ -84,21 +83,14 @@ body:not(.validated) .main-container {
 /* CARDS */
 .main-card {
     background: var(--bg-alt);
-    border: 1px solid #222;
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-.main-card h2 {
+h2 {
     color: var(--red);
-    margin-bottom: 0.8rem;
-}
-
-.main-card p {
-    color: var(--muted);
-    margin-bottom: 1.2rem;
 }
 
 /* LOADER */
@@ -107,22 +99,23 @@ body:not(.validated) .main-container {
     inset: 0;
     background: rgba(0,0,0,0.92);
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 9999;
     transition: opacity 0.5s ease;
 }
 
 .loader-title {
     color: var(--red);
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 .loader-spinner {
-    width: 8vmin;
-    height: 8vmin;
-    border: 3px solid #333;
+    width: 10vmin;
+    height: 10vmin;
+    border: 1vh solid #333;
     border-top-color: var(--yellow);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -136,10 +129,6 @@ body:not(.validated) .main-container {
     text-transform: uppercase;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
 .hide {
     opacity: 0;
     pointer-events: none;
@@ -147,14 +136,14 @@ body:not(.validated) .main-container {
 
 .admin-button {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.8rem;
     background: var(--red);
     border: none;
     color: #fff;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.3s ease;
+    font-size: 1rem;
+    transition: background 0.5s ease;
     display: none;
 }
 
@@ -162,26 +151,11 @@ body:not(.validated) .main-container {
     background: var(--orange);
 }
 
-/* KEBABS */
 .kebabs-box {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1.5rem;
-}
-
-.kebab-button {
-    background: var(--bg);
-    border: 1px solid #333;
-    color: var(--text);
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-}
-.kebab-button:hover {
-    background: var(--red);
-    transform: translateY(-2px);
 }
 
 .popup {
@@ -191,7 +165,8 @@ body:not(.validated) .main-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3000;
+    z-index: 100;
+    overflow-y: auto;
 }
 
 .popup-content {
@@ -199,28 +174,10 @@ body:not(.validated) .main-container {
     border: 1px solid #333;
     border-radius: 12px;
     padding: 2rem;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 45vw;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
     text-align: center;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-}
-
-.popup-content h2 {
-    color: var(--red);
-    margin-bottom: 1rem;
-}
-
-#kebab-info {
-    overflow-y: auto;
-}
-
-#kebab-info p, #kebab-form-info p {
-    color: var(--muted);
-    margin-bottom: 1rem;
 }
 
 .popup-close {
@@ -240,16 +197,11 @@ body:not(.validated) .main-container {
 .kebab-folder {
     text-align: center;
     cursor: pointer;
-    user-select: none;
-    transition: transform 0.2s ease;
+    transition: transform 0.5s ease;
 }
 
 .kebab-folder:hover {
     transform: translateY(-0.5vh);
-}
-
-.folder-icon {
-    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .folder-icon i {
@@ -265,7 +217,6 @@ body:not(.validated) .main-container {
     word-break: break-word;
 }
 
-/* FORM INPUTS - KEBAB */
 #kebabs-form input, #kebabs-form textarea {
     width: 100%;
     background: var(--bg);
@@ -275,21 +226,18 @@ body:not(.validated) .main-container {
     color: var(--text);
     font-size: 0.85rem;
     outline: none;
-    transition: border-color 0.25s, box-shadow 0.25s;
+    transition: border-color 0.5s, box-shadow 0.5s;
 }
 
-/* Placeholder (si tu en ajoutes plus tard) */
 #kebabs-form input::placeholder, #kebabs-form textarea::placeholder {
     color: var(--muted);
 }
 
-/* Focus */
 #kebabs-form input:focus, #kebabs-form textarea:focus {
     border-color: var(--red);
     box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.25);
 }
 
-/* Label / <strong> alignment */
 #kebab-form-info p {
     text-align: left;
 }
@@ -302,7 +250,6 @@ body:not(.validated) .main-container {
     letter-spacing: 0.05em;
 }
 
-/* Spacing entre champs */
 #kebab-form-info p + p {
     margin-top: 1rem;
 }
@@ -311,13 +258,13 @@ body:not(.validated) .main-container {
     background: var(--bg);
     border: 1px solid var(--yellow);
     color: var(--yellow);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,4 +286,43 @@ body:not(.validated) .main-container {
     font-size: 0.75rem;
     color: var(--muted);
     margin-top: 0.2rem;
+}
+
+.kebab-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.kebab-field strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--orange);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+.kebab-value {
+    background: var(--bg);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.kebab-field.inline {
+    display: flex;
+    gap: 1rem;
+}
+
+.kebab-field.inline > div {
+    flex: 1;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
