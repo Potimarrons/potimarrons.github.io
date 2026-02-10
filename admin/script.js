@@ -95,6 +95,7 @@ async function initApp() {
     }
 
     window.see_users = async function () {
+        document.body.style.overflow = "hidden";
         const popup = document.getElementById("users-popup");
         const list = document.getElementById("users-list");
 
@@ -187,6 +188,7 @@ async function initApp() {
     }
 
     window.see_unused_tokens = async function () {
+        document.body.style.overflow = "hidden";
         const popup = document.getElementById("tokens-popup");
         const list = document.getElementById("tokens-list");
 
@@ -244,6 +246,7 @@ async function initApp() {
     }
 
     window.see_users_inside = async function () {
+        document.body.style.overflow = "hidden";
         const popup = document.getElementById("users-inside-popup");
         const list = document.getElementById("users-inside-list");
 
@@ -299,10 +302,12 @@ async function initApp() {
 
 
     window.closeTokensPopup = function () {
+        document.body.style.overflow = "";
         document.getElementById("tokens-popup").style.display = "none";
     };
 
     window.closeUsersPopup = function () {
+        document.body.style.overflow = "";
         document.getElementById("users-popup").style.display = "none";
     };
 
@@ -311,6 +316,7 @@ async function initApp() {
     }
 
     window.closeUsersInsidePopup = function () {
+        document.body.style.overflow = "";
         document.getElementById("users-inside-popup").style.display = "none";
     }
 }

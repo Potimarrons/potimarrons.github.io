@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
             folder.addEventListener("click", () => {
+                document.body.style.overflow = "hidden";
                 display_info(kebab);
                 current_kebab = kebab;
                 if (kebab.owner_email == userData.email || userData.rank >= 4) {
@@ -171,6 +172,7 @@ async function initApp() {
     }
 
     window.closeKebabPopup = function () {
+        document.body.style.overflow = "";
         document.getElementById("kebabs-popup").style.display = "none";
         current_kebab = null;
     }
