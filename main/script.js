@@ -65,7 +65,16 @@ async function initApp() {
 
     document.getElementById("kebab-short-desc-input").addEventListener("input", () => {
         document.getElementById("short-desc-counter").textContent = `${document.getElementById("kebab-short-desc-input").value.length}/${200}`;
+
     });
+
+    const fullInput = document.getElementById("kebab-full-desc-input");
+    const fullPreview = document.getElementById("kebab-full-desc-preview");
+
+    fullInput.addEventListener("input", () => {
+        fullPreview.innerHTML = markdownToHtml(fullInput.value);
+    });
+
 
     window.openKebabForm = async function (action) {
         if (action == "add") {
@@ -83,6 +92,8 @@ async function initApp() {
             document.getElementById("kebab-users-input").value = users;
             document.getElementById("kebab-short-desc-input").value = short_desc;
             document.getElementById("kebab-full-desc-input").value = full_desc;
+            document.getElementById("kebab-full-desc-preview").innerHTML =
+                markdownToHtml(full_desc);
         }
 
         document.getElementById("kebabs-form").style.display = "flex";
@@ -163,8 +174,10 @@ async function initApp() {
     globalThis.display_info = async function (kebab) {
         document.getElementById("kebab-title").textContent = kebab.title;
         document.getElementById("kebab-users").textContent = kebab.users_inside;
-        document.getElementById("kebab-short-desc").textContent = kebab.short_description;
-        document.getElementById("kebab-full-desc").textContent = kebab.complete_description;
+        document.getElementById("kebab-short-desc").innerHTML =
+            markdownToHtml(kebab.short_description);
+        document.getElementById("kebab-full-desc").innerHTML =
+            markdownToHtml(kebab.complete_description);
         document.getElementById("kebab-created").textContent = new Date(kebab.created_at).toLocaleString("fr-FR");;
         document.getElementById("kebab-last-edit").textContent = new Date(kebab.last_edit_at).toLocaleString("fr-FR");
 
@@ -179,6 +192,47 @@ async function initApp() {
 
     window.closeKebabForm = function () {
         document.getElementById("kebabs-form").style.display = "none";
+    }
+
+    function markdownToHtml(text) {
+        return text
+            // Couleurs
+            .replace(/\[color=(#[0-9a-fA-F]{3,6}|[a-zA-Z]+)\]([\s\S]*?)\[\/color\]/g,
+                "<span class='markdown color' style='color:$1'>$2</span>")
+            // Boxes
+            .replace(/\[box=(info|warning|success|error)\]([\s\S]*?)\[\/box\]/g,
+                "<div class='markdown box $1'>$2</div>")
+            // Highlight
+            .replace(/(?<!\\)==([^=]+)==/g,
+                "<span class='markdown highlight'>$1</span>")
+            // Warning
+            .replace(/(?<!\\)!!([^!]+)!!/g,
+                "<span class='markdown warning'>$1</span>")
+            // Strikethrough
+            .replace(/(?<!\\)~~([^~]+)~~/g,
+                "<span class='markdown strike'>$1</span>")
+            // Code
+            .replace(/(?<!\\)`([^`]+)`/g,
+                "<span class='markdown code'>$1</span>")
+            // Gras
+            .replace(/(?<!\\)\*\*([^*]+)\*\*/g,
+                "<span class='markdown bold'>$1</span>")
+            // Souligné
+            .replace(/(?<!\\)__([^_]+)__/g,
+                "<span class='markdown underline'>$1</span>")
+            // Italique
+            .replace(/(?<!\\)\*([^*]+)\*/g,
+                "<span class='markdown italic'>$1</span>")
+            // Muted
+            .replace(/\(\(([^)]+)\)\)/g,
+                "<span class='markdown muted'>$1</span>")
+            // Liens
+            .replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g,
+                "<a href='$2' target='_blank' class='markdown link'>$1</a>")
+            // Retours à la ligne
+            .replace(/\n/g, "<br>")
+            // Enfin, enlever les \ devant les caractères spéciaux restants
+            .replace(/\\([*_`~!=\[\]()])/g, "$1");
     }
 }
 

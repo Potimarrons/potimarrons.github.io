@@ -222,7 +222,7 @@ h2 {
     word-break: break-word;
 }
 
-#kebabs-form input, #kebabs-form textarea {
+#kebabs-form input, #kebabs-form textarea, .kebab-preview {
     width: 100%;
     background: var(--bg);
     border: 1px solid #333;
@@ -232,6 +232,10 @@ h2 {
     font-size: 0.85rem;
     outline: none;
     transition: border-color 0.5s, box-shadow 0.5s;
+}
+
+.kebab-preview {
+    text-align: left;
 }
 
 #kebabs-form input::placeholder, #kebabs-form textarea::placeholder {
@@ -359,4 +363,106 @@ h2 {
         var(--orange),
         var(--yellow)
     );
+}
+
+.markdown {
+    line-height: 1.45;
+    transition: all 0.5s ease;
+}
+
+.bold {
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(241, 196, 15, 0.35);
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    color: var(--text);
+}
+
+.code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85em;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 0.15em 0.45em;
+    color: var(--muted);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.highlight {
+    background: rgba(241, 196, 15, 0.25);
+    padding: 0 0.2em;
+    border-radius: 4px;
+}
+.warning {
+    color: var(--red);
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(192, 57, 43, 0.5);
+}
+.box {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 0.5em 0;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.box.info {
+    border-left: 4px solid var(--yellow);
+    background: rgba(241, 196, 15, 0.08);
+}
+
+.box.success {
+    border-left: 4px solid #2ecc71;
+    background: rgba(46, 204, 113, 0.08);
+}
+
+.box.warning {
+    border-left: 4px solid #f39c12;
+    background: rgba(243, 156, 18, 0.08);
+}
+
+.box.error {
+    border-left: 4px solid var(--red);
+    background: rgba(192, 57, 43, 0.08);
+}
+.box:hover {
+    filter: brightness(1.1);
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 0.8em;
+}
+.link {
+    color: var(--yellow);
+    text-decoration: underline;
+}
+.link:hover {
+    color: var(--orange);
+}
+.strike {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* 🐢 Hover subtil (optionnel mais classe) */
+.bold:hover,
+.italic:hover,
+.underline:hover,
+.code:hover,
+.highlight:hover,
+.warning:hover,
+.muted:hover,
+.link:hover,
+.strike:hover {
+    filter: brightness(1.15);
 }
