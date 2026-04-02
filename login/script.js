@@ -38,6 +38,14 @@ async function initApp() {
         }
     });
 
+    // ── Raccourcis clavier ─────────────────────────────────────
+    document.getElementById("email")?.addEventListener("keydown", e => {
+        if (e.key === "Enter") { e.preventDefault(); login(); }
+    });
+    document.getElementById("password")?.addEventListener("keydown", e => {
+        if (e.key === "Enter") { e.preventDefault(); login(); }
+    });
+
     // ── Connexion ─────────────────────────────────────────────
     window.login = async function () {
         const email = document.getElementById("email");

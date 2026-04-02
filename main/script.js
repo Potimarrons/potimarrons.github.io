@@ -247,10 +247,21 @@ function openKebabDetail(kebab) {
     document.getElementById("delete-kebab-btn").style.display =
         isOwner ? "inline-flex" : "none";
 
+    // Bouton toggle public/privé (propriétaire uniquement)
+    const togglePublicBtn = document.getElementById("toggle-public-btn");
+    const togglePublicLabel = document.getElementById("toggle-public-label");
+    if (isOwner) {
+        togglePublicBtn.style.display = "inline-flex";
+        togglePublicLabel.textContent = kebab.is_public ? "Rendre privé" : "Rendre public";
+        togglePublicBtn.classList.toggle("is-public", !!kebab.is_public);
+    } else {
+        togglePublicBtn.style.display = "none";
+    }
+
     // Section partages (propriétaire uniquement)
     const sharesSection = document.getElementById("kebab-shares-section");
     if (isOwner) {
-        sharesSection.style.display = "block";
+        sharesSection.style.display = "flex";
         renderSharesList(shares);
         // Reset champs partage
         document.getElementById("share-email-input").value = "";
@@ -266,21 +277,25 @@ function openKebabDetail(kebab) {
 function renderSharesList(shares) {
     const list = document.getElementById("kebab-shares-list");
     const badge = document.getElementById("shares-count");
-    badge.textContent = shares.length ? `(${shares.length})` : "";
+    badge.textContent = shares.length || "0";
 
     if (!shares.length) {
-        list.innerHTML = `<span class="muted">Pas encore partagé avec d'autres.</span>`;
+        list.innerHTML = `<div class="shares-empty">
+            <i class="fa-solid fa-user-slash"></i>
+            Pas encore partagé avec d'autres.
+        </div>`;
         return;
     }
 
     list.innerHTML = shares.map(s => `
         <div class="share-item">
+            <i class="fa-solid ${s.can_edit ? "fa-pen" : "fa-eye"} share-item-icon ${s.can_edit ? "can-edit" : ""}"></i>
             <span class="share-email">${escapeHtml(s.shared_with_email)}</span>
             <span class="share-perm${s.can_edit ? " can-edit" : ""}">
-                ${s.can_edit ? "Modification" : "Lecture seule"}
+                ${s.can_edit ? "Modification" : "Lecture"}
             </span>
             <button class="share-remove" onclick="removeShare('${s.id}')"
-                title="Retirer le partage">×</button>
+                title="Retirer le partage"><i class="fa-solid fa-xmark"></i></button>
         </div>
     `).join("");
 }
@@ -338,6 +353,44 @@ window.closeKebabPopup = function () {
     document.body.style.overflow = "";
     document.getElementById("kebabs-popup").style.display = "none";
     currentKebab = null;
+};
+
+// ── Basculer public/privé ────────────────────────────────────────
+window.toggleKebabPublic = async function () {
+    if (!currentKebab) return;
+    const newPublic = !currentKebab.is_public;
+
+    const { error } = await sb.from("KebabsData")
+        .update({ is_public: newPublic, last_edit_at: new Date().toISOString() })
+        .eq("kebab_id", currentKebab.kebab_id);
+
+    if (error) { alert("Erreur : " + error.message); return; }
+
+    currentKebab.is_public = newPublic;
+    _syncKebabInCache(currentKebab);
+
+    // Mettre à jour le badge dans le popup
+    const titleEl = document.getElementById("kebab-title");
+    if (newPublic) {
+        titleEl.innerHTML =
+            escapeHtml(currentKebab.title)
+            + ` <span class="kebab-public-badge"><i class="fa-solid fa-globe"></i> Public</span>`;
+    } else {
+        titleEl.textContent = currentKebab.title;
+    }
+
+    // Mettre à jour le bouton
+    document.getElementById("toggle-public-label").textContent =
+        newPublic ? "Rendre privé" : "Rendre public";
+    document.getElementById("toggle-public-btn").classList.toggle("is-public", newPublic);
+
+    // Rafraîchir la carte dans la grille
+    renderKebabs(activeTagFilter === "__all__"
+        ? allKebabs
+        : allKebabs.filter(k =>
+            (k.tags || "").split(",").map(t => t.trim()).includes(activeTagFilter)
+        )
+    );
 };
 
 // ── Formulaire création/édition ─────────────────────────────────

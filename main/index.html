@@ -104,21 +104,33 @@
                 </div>
 
                 <!-- Partages : visible uniquement pour le propriétaire -->
-                <div id="kebab-shares-section" class="kebab-field" style="display:none;">
-                    <strong>
-                        Partages
+                <div id="kebab-shares-section" class="kebab-shares-section" style="display:none;">
+                    <div class="shares-section-header">
+                        <span class="shares-section-title">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            Partages
+                        </span>
                         <span id="shares-count" class="shares-count-badge"></span>
-                    </strong>
+                    </div>
+
                     <div id="kebab-shares-list" class="shares-list"></div>
-                    <div class="share-add-row">
+
+                    <div class="share-add-block">
                         <div class="autocomplete-wrapper">
-                            <input type="email" id="share-email-input" placeholder="Email à partager…"
+                            <input type="email" id="share-email-input" placeholder="Adresse email…"
                                 autocomplete="off" />
                             <div id="share-email-dropdown" class="autocomplete-dropdown" style="display:none;"></div>
                         </div>
-                        <label class="share-edit-label">
-                            <input type="checkbox" id="share-can-edit"> Peut modifier
+
+                        <label class="share-toggle-label" for="share-can-edit" title="Activer pour autoriser la modification">
+                            <i class="fa-solid fa-pen share-toggle-icon"></i>
+                            <span class="share-toggle-text">Peut modifier</span>
+                            <div class="toggle-switch toggle-switch--sm">
+                                <input type="checkbox" id="share-can-edit">
+                                <span class="toggle-slider"></span>
+                            </div>
                         </label>
+
                         <button class="share-add-btn" onclick="addShare()">
                             <i class="fa-solid fa-share-nodes"></i> Partager
                         </button>
@@ -131,6 +143,10 @@
                 <button id="open-form-kebab-btn" class="popup-close" onclick="openKebabForm('edit')"
                     style="display:none;">
                     <i class="fa-solid fa-pen"></i> Modifier
+                </button>
+                <button id="toggle-public-btn" class="popup-close btn-toggle-public" onclick="toggleKebabPublic()"
+                    style="display:none;">
+                    <i class="fa-solid fa-globe"></i> <span id="toggle-public-label">Rendre public</span>
                 </button>
                 <button class="popup-close" onclick="closeKebabPopup()">Fermer</button>
                 <button id="delete-kebab-btn" class="popup-close btn-danger" onclick="deleteKebab()"
@@ -160,28 +176,31 @@
                     <input type="text" id="kebab-users-input" placeholder="Laila (partie en Espagne), Ahmed, Sara…">
                 </p>
 
-                <p>
-                    <strong>Tags</strong>
-                <div id="tags-checkboxes" class="tags-checkboxes"></div>
-                <div class="tag-add-row">
-                    <input type="text" id="new-tag-name" placeholder="Nouveau tag…" maxlength="20">
-                    <input type="color" id="new-tag-color" value="#c0392b" title="Couleur du tag">
-                    <button onclick="createTag()">
-                        <i class="fa-solid fa-plus"></i> Ajouter
-                    </button>
+                <div class="form-field-group">
+                    <strong class="form-field-label">Tags</strong>
+                    <div id="tags-checkboxes" class="tags-checkboxes"></div>
+                    <div class="tag-add-row">
+                        <input type="text" id="new-tag-name" placeholder="Nouveau tag…" maxlength="20">
+                        <input type="color" id="new-tag-color" value="#c0392b" title="Couleur du tag">
+                        <button onclick="createTag()">
+                            <i class="fa-solid fa-plus"></i> Ajouter
+                        </button>
+                    </div>
                 </div>
-                </p>
 
-                <p class="toggle-row">
-                    <label class="toggle-label">
-                        <input type="checkbox" id="kebab-is-public">
-                        <span>
-                            <i class="fa-solid fa-globe" style="color:var(--muted);margin-right:.3rem;"></i>
+                <div class="toggle-row">
+                    <label class="toggle-switch-label" for="kebab-is-public">
+                        <i class="fa-solid fa-globe toggle-globe-icon"></i>
+                        <span class="toggle-switch-text">
                             Visible par tout le monde
                             <span class="field-hint">(kebab public — aucune restriction d'accès)</span>
                         </span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="kebab-is-public">
+                            <span class="toggle-slider"></span>
+                        </div>
                     </label>
-                </p>
+                </div>
 
                 <p>
                     <strong>Courte description <span class="field-hint">(max 200 caractères)</span></strong>

@@ -342,6 +342,26 @@ h2 {
     background: var(--red);
 }
 
+.btn-toggle-public {
+    background: rgba(76, 175, 80, .15);
+    border: 1px solid #4caf50;
+    color: #4caf50;
+}
+
+.btn-toggle-public:hover {
+    background: rgba(76, 175, 80, .3);
+}
+
+.btn-toggle-public.is-public {
+    background: rgba(241, 196, 15, .12);
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.btn-toggle-public.is-public:hover {
+    background: rgba(241, 196, 15, .25);
+}
+
 /* ── Détails kebab ── */
 .kebab-details {
     display: flex;
@@ -413,71 +433,234 @@ h2 {
 }
 
 /* ── Section partages ── */
-.shares-count-badge {
+.kebab-shares-section {
+    background: var(--bg);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.shares-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .55rem .85rem;
+    background: rgba(192, 57, 43, .06);
+    border-bottom: 1px solid #2a2a2a;
+    border-radius: 10px 10px 0 0;
+}
+
+.shares-section-title {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    color: var(--orange);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+}
+
+.shares-section-title i {
     font-size: .75rem;
+}
+
+.shares-count-badge {
+    font-size: .72rem;
     color: var(--muted);
+    background: rgba(255,255,255,.05);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: .1rem .45rem;
     font-weight: normal;
-    margin-left: .3rem;
 }
 
 .shares-list {
     display: flex;
     flex-direction: column;
-    gap: .4rem;
-    margin-bottom: .8rem;
-    min-height: 1.5rem;
+    gap: 0;
+    min-height: 1rem;
+}
+
+.shares-empty {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem .85rem;
+    color: var(--muted);
+    font-size: .8rem;
+    font-style: italic;
+}
+
+.shares-empty i {
+    font-size: .7rem;
+    opacity: .6;
+}
+
+.share-item-icon {
+    font-size: .7rem;
+    color: var(--muted);
+    flex-shrink: 0;
+    width: .85rem;
+    text-align: center;
+}
+
+.share-item-icon.can-edit {
+    color: #4caf50;
 }
 
 .share-item {
     display: flex;
     align-items: center;
     gap: .6rem;
-    background: var(--bg);
-    border: 1px solid #333;
-    border-radius: 6px;
-    padding: .4rem .7rem;
+    padding: .45rem .85rem;
     font-size: .82rem;
+    border-bottom: 1px solid #1e1e1e;
+    transition: background .2s;
+}
+
+.share-item:hover {
+    background: rgba(255,255,255,.03);
+}
+
+.share-item:last-child {
+    border-bottom: none;
 }
 
 .share-email {
     flex: 1;
     color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .share-perm {
-    font-size: .75rem;
+    font-size: .72rem;
     color: var(--muted);
     border: 1px solid #333;
     border-radius: 10px;
     padding: .1rem .5rem;
+    flex-shrink: 0;
 }
 
 .share-perm.can-edit {
     color: #4caf50;
     border-color: #4caf50;
+    background: rgba(76, 175, 80, .08);
 }
 
 .share-remove {
     background: none;
     border: none;
-    color: var(--red);
+    color: #555;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1;
     transition: color .2s ease;
+    flex-shrink: 0;
+    padding: .1rem .2rem;
 }
 
 .share-remove:hover {
-    color: var(--orange);
+    color: var(--red);
 }
 
-.share-add-row {
+/* ── Formulaire d'ajout de partage ── */
+.share-add-block {
     display: flex;
     align-items: center;
     gap: .5rem;
     flex-wrap: wrap;
-    margin-top: .5rem;
+    padding: .6rem .75rem;
+    border-top: 1px solid #2a2a2a;
+    background: rgba(0,0,0,.15);
+    border-radius: 0 0 10px 10px;
 }
+
+/* Toggle compact "Peut modifier" */
+.share-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    cursor: pointer;
+    user-select: none;
+    padding: .35rem .6rem;
+    border-radius: 7px;
+    border: 1px solid #2a2a2a;
+    background: var(--bg-alt);
+    transition: border-color .3s, background .3s;
+    flex-shrink: 0;
+}
+
+.share-toggle-label:hover {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, .05);
+}
+
+.share-toggle-label:has(input:checked) {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, .08);
+}
+
+.share-toggle-icon {
+    font-size: .72rem;
+    color: var(--muted);
+    transition: color .3s;
+}
+
+.share-toggle-label:has(input:checked) .share-toggle-icon {
+    color: #4caf50;
+}
+
+.share-toggle-text {
+    font-size: .78rem;
+    color: var(--muted);
+    transition: color .3s;
+    white-space: nowrap;
+}
+
+.share-toggle-label:has(input:checked) .share-toggle-text {
+    color: var(--text);
+}
+
+/* Toggle switch taille réduite */
+.toggle-switch--sm {
+    width: 2.2rem;
+    height: 1.2rem;
+}
+
+.toggle-switch--sm .toggle-slider::before {
+    width: .72rem;
+    height: .72rem;
+    left: .18rem;
+}
+
+.toggle-switch--sm input:checked+.toggle-slider::before {
+    left: calc(100% - .9rem);
+}
+
+.share-add-btn {
+    background: var(--red);
+    border: none;
+    border-radius: 6px;
+    padding: .42rem .85rem;
+    color: var(--text);
+    font-size: .8rem;
+    cursor: pointer;
+    transition: background .3s ease;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    flex-shrink: 0;
+}
+
+.share-add-btn:hover {
+    background: var(--orange);
+}
+
+
 
 /* ── Autocomplete ── */
 .autocomplete-wrapper {
@@ -577,22 +760,94 @@ h2 {
     margin: .8rem 0 !important;
 }
 
-.toggle-label {
+.toggle-switch-label {
     display: flex;
     align-items: center;
-    gap: .55rem;
+    gap: .6rem;
     cursor: pointer;
     user-select: none;
-    color: var(--muted);
-    font-size: .88rem;
+    padding: .6rem .8rem;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    background: var(--bg);
+    transition: border-color .3s, background .3s;
 }
 
-.toggle-label input[type="checkbox"] {
-    width: 1.1rem;
-    height: 1.1rem;
-    cursor: pointer;
-    accent-color: var(--red);
+.toggle-switch-label:hover {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, .05);
+}
+
+.toggle-globe-icon {
+    font-size: .95rem;
+    color: var(--muted);
     flex-shrink: 0;
+    transition: color .3s;
+}
+
+.toggle-switch-text {
+    flex: 1;
+    color: var(--muted);
+    font-size: .88rem;
+    line-height: 1.3;
+    transition: color .3s;
+}
+
+/* Le switch lui-même */
+.toggle-switch {
+    position: relative;
+    width: 2.8rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #2a2a2a;
+    border-radius: 999px;
+    border: 1.5px solid #444;
+    transition: background .3s, border-color .3s;
+    cursor: pointer;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    left: .2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: .95rem;
+    height: .95rem;
+    border-radius: 50%;
+    background: #666;
+    transition: left .3s, background .3s;
+}
+
+.toggle-switch input:checked+.toggle-slider {
+    background: rgba(76, 175, 80, .25);
+    border-color: #4caf50;
+}
+
+.toggle-switch input:checked+.toggle-slider::before {
+    left: calc(100% - 1.15rem);
+    background: #4caf50;
+}
+
+/* Quand coché : mettre l'icône et le texte en vert aussi */
+.toggle-switch-label:has(input:checked) .toggle-globe-icon {
+    color: #4caf50;
+}
+
+.toggle-switch-label:has(input:checked) .toggle-switch-text {
+    color: var(--text);
 }
 
 /* ── Formulaire ── */
@@ -631,6 +886,22 @@ h2 {
     width: 100%;
 }
 
+/* Groupe de champ tag (remplace le <p> problématique) */
+.form-field-group {
+    display: flow-root;
+    text-align: left;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.form-field-label {
+    display: block;
+    margin-bottom: .3rem;
+    color: var(--orange);
+    font-size: .8rem;
+    letter-spacing: .05em;
+}
+
 #kebab-form-info strong {
     display: block;
     margin-bottom: .3rem;
@@ -640,6 +911,13 @@ h2 {
 }
 
 #kebab-form-info p+p {
+    margin-top: 1rem;
+}
+
+/* Espacement cohérent entre les blocs de champs */
+#kebab-form-info p+.toggle-row,
+#kebab-form-info .form-field-group+.toggle-row,
+#kebab-form-info .toggle-row+p {
     margin-top: 1rem;
 }
 

@@ -45,6 +45,15 @@ async function initApp() {
         loadingView.style.display = "none";
     }
 
+    // ── Raccourcis clavier ─────────────────────────────────────
+    // Enter sur le dernier champ (token) soumet le formulaire
+    const signupFields = ["email", "pseudo", "password", "password2", "token"];
+    signupFields.forEach(id => {
+        document.getElementById(id)?.addEventListener("keydown", e => {
+            if (e.key === "Enter") { e.preventDefault(); signup(); }
+        });
+    });
+
     window.redirect = async function () {
         window.location.replace("../main/index.html");
     };
