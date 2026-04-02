@@ -1,3 +1,4 @@
+// SCRIPT
 import { deviceKey } from "./src/admin.js";
 
 window.generateKey = function () {

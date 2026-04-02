@@ -1,3 +1,4 @@
+<!-- MAIN -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -5,17 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potimarrons - Accueil</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../src/supabase.js" defer></script>
 </head>
 
 <body>
-    <!-- LOADER -->
     <div id="main-loader">
         <div class="loader-box">
             <div class="loader-title">Les potimarrons</div>
@@ -24,46 +22,51 @@
         </div>
     </div>
 
-    <!-- MAIN PANEL -->
     <main class="main-container">
         <header class="main-header">
             <a class="back-link" href="../login/index.html">
                 <i class="fa-solid fa-reply"></i>
             </a>
             <h1 class="main-title">Potimarrons - Accueil</h1>
-            <p class="main-subtitle">Accès réservé à l’équipe</p>
+            <p class="main-subtitle">Accès réservé à l'équipe</p>
             <div class="divider"></div>
         </header>
 
-        <!-- PANEL ADMIN -->
         <section id="staff-panel" class="main-card" style="display:none;">
             <h2>Voir les kebabs disponibles</h2>
 
+            <div class="tag-filter-bar" id="tag-filter-bar">
+                <button class="tag-pill active" data-tag="__all__" onclick="filterByTag('__all__', this)">Tous</button>
+            </div>
+
             <div id="kebabs-box" class="kebabs-box"></div>
-            <button id="create-kebab-btn" title="Créer un nouveau kebab" onclick="openKebabForm('add')"><i
-                    class="fa-solid fa-plus"></i></button>
+
+            <button id="create-kebab-btn" title="Créer un nouveau kebab" onclick="openKebabForm('add')">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </section>
 
-        <!-- ACCÈS REFUSÉ -->
         <section id="access-denied" class="main-card" style="display:none;">
             <h2>Accès refusé</h2>
             <p>Cette zone est réservée au personnel autorisé.</p>
         </section>
 
-        <!-- EN ATTENTE -->
         <section id="access-loading" class="main-card">
             <h2>Chargement…</h2>
             <p>Nous vérifions votre session...</p>
         </section>
 
-        <button class="admin-button" id="admin-button" onclick="redirect()">Voir la page Admin</button>
+        <button class="admin-button" id="admin-button" onclick="redirect()">
+            Voir la page Admin
+        </button>
     </main>
 
-    <!-- POPUP KEBABS -->
+    <!-- ══ POPUP DÉTAIL KEBAB ══ -->
     <div id="kebabs-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Détails du Kebab</h2>
             <div id="kebab-info" class="kebab-details">
+
                 <div class="kebab-field">
                     <strong>Titre</strong>
                     <div id="kebab-title" class="kebab-value"></div>
@@ -72,6 +75,11 @@
                 <div class="kebab-field">
                     <strong>Personnes concernées</strong>
                     <div id="kebab-users" class="kebab-value"></div>
+                </div>
+
+                <div class="kebab-field">
+                    <strong>Tags</strong>
+                    <div id="kebab-tags-display" class="kebab-value tag-display-row"></div>
                 </div>
 
                 <div class="kebab-field">
@@ -86,63 +94,126 @@
 
                 <div class="kebab-field inline">
                     <div>
-                        <strong>Date de création</strong>
+                        <strong>Créé le</strong>
                         <div id="kebab-created" class="kebab-value"></div>
                     </div>
                     <div>
-                        <strong>Dernière modification</strong>
+                        <strong>Modifié le</strong>
                         <div id="kebab-last-edit" class="kebab-value"></div>
                     </div>
                 </div>
+
+                <!-- Partages : visible uniquement pour le propriétaire -->
+                <div id="kebab-shares-section" class="kebab-field" style="display:none;">
+                    <strong>
+                        Partages
+                        <span id="shares-count" class="shares-count-badge"></span>
+                    </strong>
+                    <div id="kebab-shares-list" class="shares-list"></div>
+                    <div class="share-add-row">
+                        <div class="autocomplete-wrapper">
+                            <input type="email" id="share-email-input" placeholder="Email à partager…"
+                                autocomplete="off" />
+                            <div id="share-email-dropdown" class="autocomplete-dropdown" style="display:none;"></div>
+                        </div>
+                        <label class="share-edit-label">
+                            <input type="checkbox" id="share-can-edit"> Peut modifier
+                        </label>
+                        <button class="share-add-btn" onclick="addShare()">
+                            <i class="fa-solid fa-share-nodes"></i> Partager
+                        </button>
+                    </div>
+                </div>
+
             </div>
-            <button id="open-form-kebab-btn" class="popup-close" onclick="openKebabForm('edit')"
-                style="display: none;">Modifier</button>
-            <button class="popup-close" onclick="closeKebabPopup()">Fermer</button>
-            <button id="delete-kebab-btn" class="popup-close" onclick="deleteKebab()"
-                style="display: none;">Supprimer</button>
+
+            <div class="popup-actions">
+                <button id="open-form-kebab-btn" class="popup-close" onclick="openKebabForm('edit')"
+                    style="display:none;">
+                    <i class="fa-solid fa-pen"></i> Modifier
+                </button>
+                <button class="popup-close" onclick="closeKebabPopup()">Fermer</button>
+                <button id="delete-kebab-btn" class="popup-close btn-danger" onclick="deleteKebab()"
+                    style="display:none;">
+                    <i class="fa-solid fa-trash"></i> Supprimer
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- POPUP FORM -->
+    <!-- ══ POPUP FORMULAIRE KEBAB ══ -->
     <div id="kebabs-form" class="popup" style="display:none;">
         <div class="popup-content">
-            <h2>Détails du Kebab</h2>
+            <h2 id="form-title">Nouveau Kebab</h2>
             <div id="kebab-form-info">
+
                 <p>
-                    <strong>Titre (20 caractères maximum, obligatoire) :</strong>
-                    <input type="text" name="Titre du kebab" id="kebab-title-input" maxlength="20"
-                        placeholder="Tapez le titre ici..." required>
+                    <strong>Titre <span class="field-hint">(max 20 caractères)</span></strong>
+                    <input type="text" id="kebab-title-input" maxlength="20" placeholder="Titre du kebab…">
                     <span class="char-counter" id="title-counter">0/20</span>
                 </p>
+
                 <p>
-                    <strong>Personnes concernées (obligatoire) :</strong>
-                    <input type="text" name="Personnes concernées" id="kebab-users-input"
-                        placeholder="Tapez les personnes concernées ici..." required>
+                    <strong>Personnes concernées
+                        <span class="field-hint">(ex : Laila (amie en Espagne), Ahmed)</span>
+                    </strong>
+                    <input type="text" id="kebab-users-input" placeholder="Laila (partie en Espagne), Ahmed, Sara…">
                 </p>
+
                 <p>
-                    <strong>Courte description (200 caractères maximum) :</strong>
-                    <textarea id="kebab-short-desc-input" name="Courte description" rows="4"
-                        placeholder="Tapez la courte description ici..." maxlength="200" required></textarea>
+                    <strong>Tags</strong>
+                <div id="tags-checkboxes" class="tags-checkboxes"></div>
+                <div class="tag-add-row">
+                    <input type="text" id="new-tag-name" placeholder="Nouveau tag…" maxlength="20">
+                    <input type="color" id="new-tag-color" value="#c0392b" title="Couleur du tag">
+                    <button onclick="createTag()">
+                        <i class="fa-solid fa-plus"></i> Ajouter
+                    </button>
+                </div>
+                </p>
+
+                <p class="toggle-row">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="kebab-is-public">
+                        <span>
+                            <i class="fa-solid fa-globe" style="color:var(--muted);margin-right:.3rem;"></i>
+                            Visible par tout le monde
+                            <span class="field-hint">(kebab public — aucune restriction d'accès)</span>
+                        </span>
+                    </label>
+                </p>
+
+                <p>
+                    <strong>Courte description <span class="field-hint">(max 200 caractères)</span></strong>
+                    <textarea id="kebab-short-desc-input" rows="4" placeholder="Courte description…"
+                        maxlength="200"></textarea>
                     <span class="char-counter" id="short-desc-counter">0/200</span>
                 </p>
+
                 <p>
-                    <strong>Description complète (obligatoire) :</strong>
-                    <textarea id="kebab-full-desc-input" name="Description complète" rows="10"
-                        placeholder="Tapez la description complète ici..." required></textarea>
+                    <strong>Description complète <span class="field-hint">(obligatoire)</span></strong>
+                    <textarea id="kebab-full-desc-input" rows="10"
+                        placeholder="Description complète — supporte le markdown personnalisé…"></textarea>
                 </p>
-                <p>
-                    <strong>Preview de la Description</strong>
+
+                <div id="preview-wrapper" style="display:none; margin-top: 1rem;">
+                    <strong>Prévisualisation</strong>
                     <div id="kebab-full-desc-preview" class="kebab-preview"></div>
-                </p>
+                </div>
+
             </div>
-            <button class="popup-close" onclick="save_kebab()">Sauvegarder</button>
-            <button class="popup-close" onclick="closeKebabForm()">Fermer</button>
+
+            <div class="popup-actions">
+                <button class="popup-close" onclick="saveKebab()">
+                    <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                </button>
+                <button class="popup-close" onclick="closeKebabForm()">Fermer</button>
+            </div>
         </div>
     </div>
-</body>
 
-<script src="../src/inspect_script.js"></script>
-<script type="module" src="script.js"></script>
-<script type="module" src="../src/path_checker.js"></script>
+    <script src="../src/inspect_script.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
 
 </html>

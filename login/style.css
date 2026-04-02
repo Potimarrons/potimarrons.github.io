@@ -1,3 +1,4 @@
+/* LOGIN */
 :root {
     --bg: #0e0e0e;
     --bg-alt: #161616;
@@ -223,4 +224,108 @@ footer {
 body:not(.validated) .container {
     opacity: 0;
     pointer-events: none;
+}
+
+/* ── Édition du profil (dans user-view) ── */
+.profile-edit-section {
+    background: #0e0e0e;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow: hidden;
+}
+
+.profile-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .65rem .9rem;
+    cursor: pointer;
+    color: var(--orange);
+    font-size: .85rem;
+    transition: background .2s ease;
+    user-select: none;
+}
+
+.profile-edit-header:hover {
+    background: rgba(230, 126, 34, .08);
+}
+
+.profile-edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    padding: .9rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+.profile-edit-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    text-align: left;
+}
+
+.profile-edit-fields label span {
+    color: var(--orange);
+    font-size: .78rem;
+    letter-spacing: .04em;
+    font-weight: 600;
+}
+
+.profile-edit-fields textarea {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: .5rem .65rem;
+    color: var(--text);
+    font-size: .85rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color .3s;
+    font-family: system-ui, sans-serif;
+}
+
+.profile-edit-fields textarea:focus {
+    border-color: var(--red);
+}
+
+.color-label input[type="color"] {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 2px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    background: none;
+}
+
+/* .avatar-preview-dot {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid #444;
+    display: inline-block;
+    transition: background .2s;
+} */
+
+.profile-edit-fields button {
+    width: 100%;
+    padding: .55rem;
+    background: var(--red);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: background .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+}
+
+.profile-edit-fields button:hover {
+    background: var(--orange);
 }

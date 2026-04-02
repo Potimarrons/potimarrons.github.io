@@ -1,3 +1,4 @@
+// SIGNUP
 import { deviceKey } from '../src/admin.js';
 
 const signupView = document.getElementById("signup-view");
@@ -10,11 +11,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (sessionStorage.getItem(key) !== "1" && sessionStorage.getItem(key) !== "validated") {
         window.location.replace("/");
-    } else {
-        initApp();
-        document.body.classList.add("validated");
-        loader.classList.add("hide");
+        return;
     }
+
+    await initApp();
+    document.body.classList.add("validated");
+    loader.classList.add("hide");
 });
 
 async function initApp() {
@@ -45,7 +47,7 @@ async function initApp() {
 
     window.redirect = async function () {
         window.location.replace("../main/index.html");
-    }
+    };
 
     window.signup = async function () {
         const email = document.getElementById("email");
@@ -54,7 +56,7 @@ async function initApp() {
         const password2 = document.getElementById("password2");
         const token = document.getElementById("token");
 
-        if (email.value === "" || password.value === "" || password2.value === "") {
+        if (!email.value || !password.value || !password2.value) {
             alert("Veuillez remplir tous les champs.");
             return;
         }
@@ -64,8 +66,9 @@ async function initApp() {
             return;
         }
 
-        if (password.length < 8) {
-            alert("Votre mot de passe doit faire au minimum 8 caractères.")
+        // BUG FIX : était password.length (la propriété de l'élément), pas password.value.length
+        if (password.value.length < 8) {
+            alert("Votre mot de passe doit faire au minimum 8 caractères.");
             return;
         }
 
@@ -90,20 +93,21 @@ async function initApp() {
         }
 
         if (pseudo.value.length < 6 || pseudo.value.length > 20) {
-            alert("Le pseudo doit contenir entre 8 et 20 caractères.");
+            alert("Le pseudo doit contenir entre 6 et 20 caractères.");
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email.value)) {
-            alert("Format d'email invalide. Veuillez réessayer avec une adresse email valide.");
+            alert("Format d'email invalide.");
             return;
         }
 
-        const { data, error } = await sb.rpc(
-            'consume_token_and_create_user',
-            { p_token: token.value, p_email: email.value, p_pseudo: pseudo.value }
-        );
+        const { data, error } = await sb.rpc("consume_token_and_create_user", {
+            p_token: token.value,
+            p_email: email.value,
+            p_pseudo: pseudo.value
+        });
 
         if (data === false) {
             alert("Le token fourni n'est pas valide.");
@@ -111,8 +115,10 @@ async function initApp() {
         }
 
         if (error) {
-            if (error.message.startsWith("duplicate key value violates unique constraint")) {
-                alert("Cet email ou ce pseudo est deja pris.");
+            if (error.message.startsWith("duplicate key value")) {
+                alert("Cet email ou ce pseudo est déjà pris.");
+            } else {
+                alert("Erreur : " + error.message);
             }
             return;
         }
@@ -123,28 +129,25 @@ async function initApp() {
         });
 
         if (signupError) {
-            if (signupError.message === "User already registered") {
-                alert("Cet email est déjà utilisé.<br>Déjà un compte ? Connectez-vous !");
-            } else if (signupError.message === "Unable to validate email address: invalid format") {
-                alert("Format d'email invalide. Veuillez réessayer avec une adresse email valide.");
-            } else if (signupError.message.includes("Password should be at least") || signupError.message.includes("Password should contain at least") || signupError.message.includes("Unprocessable Content")) {
-                alert("Le mot de passe ne remplit pas les critères de sécurité. Il doit contenir au moins 8 caractères et doit contenir au moins une lettre majuscule, une lettre minuscule, un charactère spécial et un chiffre.");
+            const msg = signupError.message;
+            if (msg === "User already registered") {
+                alert("Cet email est déjà utilisé. Connectez-vous !");
+            } else if (msg.includes("invalid format")) {
+                alert("Format d'email invalide.");
+            } else if (msg.includes("Password should")) {
+                alert("Mot de passe invalide (min. 8 caractères, maj, min, chiffre, spécial).");
             } else {
                 alert("Une erreur est survenue. Réessaie plus tard.");
             }
-            await sb.rpc(
-                'rollback_user',
-                { p_token: token.value, p_email: email.value }
-            );
+            // Rollback de la création dans UsersData
+            await sb.rpc("rollback_user", {
+                p_token: token.value,
+                p_email: email.value
+            });
             return;
-        } else {
-            alert("Le compte à l'email " + email.value.toLowerCase() + " a été créé avec succès ! Vous pouvez maintenant vous connecter.");
-
-            email.value = "";
-            password.value = "";
-            password2.value = "";
-            pseudo.value = "";
-            token.value = "";
         }
-    }
+
+        alert(`Compte créé pour ${email.value.toLowerCase()} ! Tu peux maintenant te connecter.`);
+        email.value = password.value = password2.value = pseudo.value = token.value = "";
+    };
 }

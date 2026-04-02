@@ -1,3 +1,4 @@
+<!-- LOGIN -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,6 +8,7 @@
     <title>Le bon T4</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../src/supabase.js" defer></script>
     <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
@@ -54,8 +56,8 @@
             <div id="login-view" style="display:none;">
                 <h2>Accès aux Potimarrons</h2>
                 <p><a href="../signup/index.html">Pas de compte ? Créer un compte</a></p>
-                <input id="email" type="email" placeholder="Email" autocomplete="off"/>
-                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off"/>
+                <input id="email" type="email" placeholder="Email" autocomplete="off" />
+                <input id="password" type="password" placeholder="Mot de passe" autocomplete="off" />
 
                 <button type="submit" onclick="login()">Se connecter</button>
             </div>
@@ -68,7 +70,34 @@
                 <p>Email : <span id="user-email"></span></p>
                 <p>Créé le : <span id="user-created-at"></span></p>
                 <p>Dernière connexion : <span id="user-connected-at"></span></p>
-                <p>Rank : <span id="user-rank"></span></p>
+                <p>Rang : <span id="user-rank"></span></p>
+
+                <div class="profile-edit-section">
+                    <div class="profile-edit-header" onclick="toggleProfileEdit()">
+                        <span>
+                            <i class="fa-solid fa-pen" style="margin-right:.4rem;"></i>
+                            Modifier mon profil
+                        </span>
+                        <i class="fa-solid fa-chevron-down" id="profile-chevron" style="transition:transform .3s;"></i>
+                    </div>
+                    <div class="profile-edit-fields" id="profile-edit-fields" style="display:none;">
+                        <label>
+                            <span>Bio</span>
+                            <textarea id="edit-bio" rows="3" placeholder="Quelques mots sur toi…"
+                                maxlength="300"></textarea>
+                        </label>
+                        <label class="color-label">
+                            <span>Couleur d'avatar</span>
+                            <div style="display:flex;align-items:center;gap:.6rem;">
+                                <input type="color" id="edit-avatar-color" value="#c0392b">
+                                <span id="avatar-preview-dot" class="avatar-preview-dot"></span>
+                            </div>
+                        </label>
+                        <button onclick="saveProfile()">
+                            <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                        </button>
+                    </div>
+                </div>
 
                 <button type="button" onclick="redirect()">Continuer</button>
                 <button type="reset" onclick="logout()">Se déconnecter</button>

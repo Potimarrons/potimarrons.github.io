@@ -1,3 +1,4 @@
+/* STYLE */
 :root {
     --bg: #111;
     --bg-light: #1c1c1c;
@@ -266,19 +267,15 @@ a:visited {
 }
 
 *::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        180deg,
-        var(--red),
-        var(--orange)
-    );
+    background: linear-gradient(180deg,
+            var(--red),
+            var(--orange));
     border-radius: 10px;
     border: 2px solid #0e0e0e;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-        180deg,
-        var(--orange),
-        var(--yellow)
-    );
+    background: linear-gradient(180deg,
+            var(--orange),
+            var(--yellow));
 }

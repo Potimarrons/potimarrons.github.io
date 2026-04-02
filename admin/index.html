@@ -1,3 +1,4 @@
+<!-- ADMIN -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -5,17 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potimarrons - Admin</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
-    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../src/supabase.js" defer></script>
 </head>
 
 <body>
-    <!-- LOADER -->
     <div id="main-loader">
         <div class="loader-box">
             <div class="loader-title">Les potimarrons</div>
@@ -24,7 +22,6 @@
         </div>
     </div>
 
-    <!-- MAIN PANEL -->
     <main class="main-container">
         <header class="main-header">
             <a class="back-link" href="../main/index.html">
@@ -35,103 +32,202 @@
             <div class="divider"></div>
         </header>
 
-        <!-- PANEL ADMIN -->
-        <section id="staff-panel" class="main-card" style="display:none;">
-            <h2>Gestion des utilisateurs du site</h2>
-
+        <section class="staff-panel main-card" style="display:none;">
+            <h2>Gestion des utilisateurs</h2>
             <div class="admin-buttons">
-                <button onclick="see_users()"><i class="fa-solid fa-users"></i> Voir la liste des utilisateurs</button>
+                <button onclick="see_users()">
+                    <i class="fa-solid fa-users"></i> Liste des utilisateurs
+                </button>
             </div>
         </section>
 
-        <section id="staff-panel" class="main-card" style="display:none;">
+        <section class="staff-panel main-card" style="display:none;">
             <h2>Gestion des tokens</h2>
-
             <div class="admin-buttons">
-                <button onclick="see_unused_tokens()"><i class="fa-solid fa-key"></i> Voir les tokens
-                    inutilisés</button>
+                <button onclick="see_unused_tokens()">
+                    <i class="fa-solid fa-key"></i> Tokens inutilisés
+                </button>
             </div>
         </section>
 
-        <section id="staff-panel" class="main-card" style="display:none;">
-            <h2>Gestion des personnes impliquées dans les kebabs</h2>
-
+        <section class="staff-panel main-card" style="display:none;">
+            <h2>Gestion des kebabs</h2>
+            <p class="section-hint">Métadonnées et partages uniquement — le contenu reste protégé.</p>
             <div class="admin-buttons">
-                <button onclick="see_users_inside()"><i class="fa-solid fa-users"></i> Voir les personnes 
-                    impliquées</button>
+                <button onclick="see_kebabs_admin()">
+                    <i class="fa-solid fa-folder-open"></i> Voir tous les kebabs
+                </button>
             </div>
         </section>
 
-        <!-- ACCÈS REFUSÉ -->
+        <section class="staff-panel main-card" style="display:none;">
+            <h2>Personnes impliquées dans les kebabs</h2>
+            <div class="admin-buttons">
+                <button onclick="see_users_inside()">
+                    <i class="fa-solid fa-users"></i> Voir les personnes impliquées
+                </button>
+            </div>
+        </section>
+
         <section id="access-denied" class="main-card" style="display:none;">
             <h2>Accès refusé</h2>
             <p>Cette zone est réservée au personnel autorisé.</p>
         </section>
 
-        <!-- EN ATTENTE -->
         <section id="access-loading" class="main-card">
             <h2>Chargement...</h2>
             <p>Nous vérifions votre session...</p>
         </section>
     </main>
 
-    <!-- POPUP USERS -->
+    <!-- ══ POPUP LISTE UTILISATEURS ══ -->
     <div id="users-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Liste des utilisateurs</h2>
-            <div id="users-list">
-                <p>Chargement...</p>
+            <div id="users-list"><p>Chargement...</p></div>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeUsersPopup()">Fermer</button>
             </div>
-            <button class="popup-close" onclick="closeUsersPopup()">Fermer</button>
         </div>
     </div>
 
+    <!-- ══ POPUP DÉTAIL UTILISATEUR ══ -->
     <div id="user-info-popup" class="popup" style="display:none;">
         <div class="popup-content">
-            <h2>Détails de l'utilisateur</h2>
+            <h2>Profil utilisateur</h2>
             <div id="user-info">
-                <p><strong>Pseudo :</strong> <span id="session-id"></span></p>
-                <p><strong>Email :</strong> <span id="user-email"></span></p>
-                <p><strong>Créé le :</strong> <span id="user-created-at"></span></p>
-                <p><strong>Dernière connexion :</strong> <span id="user-connected-at"></span></p>
+                <p><strong>Pseudo</strong><span id="session-id"></span></p>
+                <p><strong>Email</strong><span id="user-email"></span></p>
+                <p><strong>Créé le</strong><span id="user-created-at"></span></p>
+                <p><strong>Dernière connexion</strong><span id="user-connected-at"></span></p>
                 <p>
-                    <strong>Rank :</strong>
+                    <strong>Rang</strong>
                     <select id="user-rank-select" disabled></select>
                 </p>
-                <p><strong>Token :</strong> <span id="user-token"></span></p>
+                <p><strong>Token utilisé</strong><span id="user-token"></span></p>
+                <p><strong>Bio</strong><span id="user-bio" style="color:var(--muted);font-style:italic;"></span></p>
+                <div class="admin-notes-field">
+                    <strong>Notes admin <span style="color:var(--muted);font-weight:normal;">(admins uniquement)</span></strong>
+                    <textarea id="user-admin-notes" rows="4"
+                        placeholder="Notes internes sur cet utilisateur…"></textarea>
+                    <button id="save-admin-notes-btn" class="popup-close save-notes-btn"
+                        style="display:none;margin-top:.5rem;">
+                        <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                    </button>
+                </div>
             </div>
-            <button class="popup-close" onclick="closeUserInfoPopup()">Fermer</button>
-            <button class="popup-close" onclick="banUser()">Bannir l'utilisateur</button>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeUserInfoPopup()">Fermer</button>
+                <button class="popup-close btn-danger" onclick="banUser()">Bannir</button>
+            </div>
         </div>
     </div>
 
-    <!-- POPUP TOKENS -->
+    <!-- ══ POPUP TOKENS ══ -->
     <div id="tokens-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Tokens inutilisés</h2>
-            <div id="tokens-list">
-                <p>Chargement...</p>
+            <div id="tokens-list"><p>Chargement...</p></div>
+            <button id="create-token-btn" title="Créer un token" onclick="create_token()">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeTokensPopup()">Fermer</button>
             </div>
-            <button id="create-token-btn" title="Créer un nouveau token" onclick="create_token()"><i
-                    class="fa-solid fa-plus"></i></button>
-            <button class="popup-close" onclick="closeTokensPopup()">Fermer</button>
         </div>
     </div>
 
-    <!-- POPUP USERS INSIDE -->
+    <!-- ══ POPUP KEBABS ADMIN (métadonnées) ══ -->
+    <div id="kebabs-admin-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <h2>Tous les kebabs</h2>
+            <p class="section-hint" style="margin-bottom:1rem;">
+                Contenu protégé — seuls les métadonnées et partages sont accessibles ici.
+            </p>
+            <div id="kebabs-admin-list"><p>Chargement...</p></div>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeKebabsAdminPopup()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ POPUP PARTAGES D'UN KEBAB ══ -->
+    <div id="kebab-shares-admin-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <h2 id="kebab-shares-admin-title">Partages du kebab</h2>
+            <p id="kebab-shares-admin-owner" class="section-hint" style="margin-bottom:1rem;"></p>
+            <div id="kebab-shares-admin-list"><p>Chargement...</p></div>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeKebabSharesAdminPopup()">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ POPUP PERSONNES IMPLIQUÉES ══ -->
     <div id="users-inside-popup" class="popup" style="display:none;">
         <div class="popup-content">
-            <h2>Liste des personnes impliquées</h2>
-            <div id="users-inside-list">
-                <p>Chargement...</p>
+            <h2>Personnes impliquées</h2>
+            <div id="users-inside-list"><p>Chargement...</p></div>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closeUsersInsidePopup()">Fermer</button>
             </div>
-            <button class="popup-close" onclick="closeUsersInsidePopup()">Fermer</button>
         </div>
     </div>
-</body>
 
-<script src="../src/inspect_script.js"></script>
-<script type="module" src="script.js" defer></script>
-<script type="module" src="../src/path_checker.js"></script>
+    <!-- ══ POPUP PROFIL PERSONNE ══ -->
+    <div id="person-profile-popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <div class="person-avatar-row">
+                <div class="person-avatar-dot" id="person-avatar-dot"></div>
+                <h2 id="person-profile-name">Prénom</h2>
+            </div>
+
+            <div class="person-profile-grid">
+                <div class="person-profile-field">
+                    <label>Description physique</label>
+                    <textarea id="person-physical" rows="4"
+                        placeholder="Apparence, taille, cheveux…"></textarea>
+                </div>
+                <div class="person-profile-field">
+                    <label>Personnalité</label>
+                    <textarea id="person-mental" rows="4"
+                        placeholder="Caractère, habitudes, traits…"></textarea>
+                </div>
+                <div class="person-profile-field">
+                    <label>Amis &amp; relations</label>
+                    <textarea id="person-friends" rows="3"
+                        placeholder="Liens, cercle proche…"></textarea>
+                </div>
+                <div class="person-profile-field">
+                    <label>Notes libres</label>
+                    <textarea id="person-notes" rows="3"
+                        placeholder="Tout ce qui semble important…"></textarea>
+                </div>
+                <div class="person-profile-field full-width">
+                    <label>Couleur d'identification</label>
+                    <div style="display:flex;align-items:center;gap:.7rem;margin-top:.3rem;">
+                        <input type="color" id="person-avatar-color" value="#c0392b"
+                            oninput="updatePersonDot(this.value)">
+                        <span style="color:var(--muted);font-size:.8rem;">
+                            Couleur affichée sur la carte de la personne
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <p id="person-created-info" class="person-created-info"></p>
+
+            <div class="popup-actions">
+                <button class="popup-close save-notes-btn" onclick="savePersonProfile()">
+                    <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
+                </button>
+                <button class="popup-close" onclick="closePersonProfilePopup()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/inspect_script.js"></script>
+    <script type="module" src="script.js" defer></script>
+</body>
 
 </html>
