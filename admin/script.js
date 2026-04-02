@@ -347,7 +347,7 @@ async function initApp() {
 
         kebabsRes.data.forEach(row => {
             (row.users_inside || "").split(",")
-                .map(n => n.trim()).filter(Boolean)
+                .map(n => n.replace(/\(.*?\)/g, "").trim()).filter(Boolean)
                 .forEach(name => { counts[name] = (counts[name] || 0) + 1; });
         });
 
