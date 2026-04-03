@@ -83,8 +83,9 @@
                     <div class="profile-edit-fields" id="profile-edit-fields" style="display:none;">
                         <label>
                             <span>Bio</span>
-                            <textarea id="edit-bio" rows="3" placeholder="Quelques mots sur toi…"
-                                maxlength="300"></textarea>
+                            <textarea id="edit-bio" rows="3" placeholder="Quelques mots sur toi…" maxlength="300"
+                                oninput="updateBioCounter(this)"></textarea>
+                            <span id="bio-counter" style="float:right;font-size:.72rem;color:var(--muted);">0/300</span>
                         </label>
                         <label class="color-label">
                             <span>Couleur d'avatar</span>

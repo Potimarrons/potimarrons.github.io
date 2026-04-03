@@ -14,6 +14,12 @@
 </head>
 
 <body>
+    <!-- ══ BANNIÈRE NOTIFICATION ══ -->
+    <div id="notification-banner" class="notification-banner" role="alert">
+        <span id="notification-message"></span>
+        <button class="notification-close" onclick="dismissNotification()">×</button>
+    </div>
+
     <div id="main-loader">
         <div class="loader-box">
             <div class="loader-title">Les potimarrons</div>
@@ -228,6 +234,40 @@
                     <i class="fa-solid fa-floppy-disk"></i> Sauvegarder
                 </button>
                 <button class="popup-close" onclick="closeKebabForm()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ POPUP CARTE PERSONNE (lecture seule) ══ -->
+    <div id="person-card-popup" class="popup" style="display:none;">
+        <div class="popup-content popup-content--sm">
+            <div class="person-avatar-row" style="margin-bottom:.8rem;">
+                <div class="person-avatar-dot" id="pc-avatar-dot"></div>
+                <h2 id="pc-name" style="font-size:1.3rem;"></h2>
+            </div>
+            <div id="person-card-grid" class="person-card-grid" style="display: none;">
+                <div class="person-card-field" id="pc-physical-wrap">
+                    <strong>Description physique</strong>
+                    <div id="pc-physical" class="kebab-value"></div>
+                </div>
+                <div class="person-card-field" id="pc-mental-wrap">
+                    <strong>Personnalité</strong>
+                    <div id="pc-mental" class="kebab-value"></div>
+                </div>
+                <div class="person-card-field" id="pc-friends-wrap">
+                    <strong>Amis &amp; relations</strong>
+                    <div id="pc-friends" class="kebab-value"></div>
+                </div>
+                <div class="person-card-field" id="pc-notes-wrap">
+                    <strong>Notes</strong>
+                    <div id="pc-notes" class="kebab-value"></div>
+                </div>
+            </div>
+            <p id="pc-empty" class="muted" style="padding:1rem 0;">
+                Aucune fiche renseignée pour cette personne.
+            </p>
+            <div class="popup-actions">
+                <button class="popup-close" onclick="closePersonCard()">Fermer</button>
             </div>
         </div>
     </div>

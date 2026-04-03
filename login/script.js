@@ -120,6 +120,11 @@ async function initApp() {
 
         // Pré-remplir les champs de profil
         document.getElementById("edit-bio").value = userData.bio || "";
+
+        // Mettre à jour le compteur bio
+        const bioEl = document.getElementById("edit-bio");
+        if (bioEl) updateBioCounter(bioEl);
+
         const currentColor = userData.avatar_color || "#c0392b";
         document.getElementById("edit-avatar-color").value = currentColor;
         // document.getElementById("avatar-preview-dot").style.background = currentColor;
@@ -160,5 +165,10 @@ async function initApp() {
 
     window.redirect = async function () {
         window.location.replace("../main/index.html");
+    };
+
+    window.updateBioCounter = function (el) {
+        const counter = document.getElementById("bio-counter");
+        if (counter) counter.textContent = `${el.value.length}/300`;
     };
 }

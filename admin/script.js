@@ -22,8 +22,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     globalThis.adminUserData = await getUserData("");
 
     if (adminUserData?.rank >= 3) {
+        // Initialiser le canal broadcast (nécessaire pour pouvoir envoyer)
+        globalThis.notifChannel = sb.channel("potimarrons-notifications").subscribe();
         await initApp();
         document.querySelectorAll(".staff-panel").forEach(p => p.style.display = "block");
+
+        // Section maintenance : rank 5 uniquement
+        if (adminUserData.rank >= 5) {
+            document.getElementById("maintenance-section").style.display = "block";
+            await refreshMaintenanceStatus();
+        }
+
         document.getElementById("access-loading").style.display = "none";
         document.getElementById("access-denied").style.display = "none";
     } else {
@@ -472,6 +481,65 @@ async function initApp() {
     window.closePersonProfilePopup = () => {
         document.getElementById("person-profile-popup").style.display = "none";
         currentPersonName = null;
+    };
+
+    // ── Maintenance ────────────────────────────────────────────
+    let _maintIsOn = false;
+
+    window.refreshMaintenanceStatus = async function () {
+        const { data } = await sb
+            .from("SiteSettings").select("value, updated_at, updated_by")
+            .eq("key", "maintenance").single();
+
+        _maintIsOn = data?.value === "true";
+        const btn = document.getElementById("maintenance-toggle-btn");
+        const label = document.getElementById("maintenance-label");
+        const status = document.getElementById("maintenance-status");
+
+        if (_maintIsOn) {
+            label.textContent = "Désactiver la maintenance";
+            btn.style.background = "rgba(192,57,43,.2)";
+            btn.style.borderColor = "var(--red)";
+            btn.style.color = "#ff8a80";
+            status.innerHTML =
+                `⚠️ Site en maintenance depuis le
+                 ${new Date(data.updated_at).toLocaleString("fr-FR")}
+                 par <em>${escapeHtml(data.updated_by)}</em>`;
+        } else {
+            label.textContent = "Activer la maintenance";
+            btn.style.background = "";
+            btn.style.borderColor = "";
+            btn.style.color = "";
+            status.textContent = "Site accessible normalement.";
+        }
+    }
+
+    window.toggleMaintenance = async function () {
+        const next = !_maintIsOn;
+        const confirm = window.confirm(
+            next
+                ? "Activer la maintenance ? Tous les utilisateurs de rang < 5 seront bloqués."
+                : "Désactiver la maintenance ? Le site redevient accessible à tous."
+        );
+        if (!confirm) return;
+
+        const { error } = await sb.rpc("toggle_maintenance", { enable: next });
+        if (error) { alert("Erreur : " + error.message); return; }
+        await refreshMaintenanceStatus();
+    };
+
+    // ── Notifications broadcast ────────────────────────────────
+    window.send_notification = async function (type = "info") {
+        const labels = { info: "Info", warning: "Avertissement", error: "Urgent" };
+        const msg = prompt(`Message [${labels[type]}] à envoyer à tous les utilisateurs connectés :`);
+        if (!msg?.trim()) return;
+
+        await globalThis.notifChannel.send({
+            type: "broadcast",
+            event: "admin_notification",
+            payload: { message: msg.trim(), type }
+        });
+        alert("Notification envoyée !");
     };
 }
 

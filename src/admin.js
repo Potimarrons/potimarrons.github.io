@@ -86,9 +86,11 @@ export function formatUsersDisplay(names = "", notesJson = "{}") {
         .map(name => {
             const n = name.trim();
             const note = notes[n];
-            return note
-                ? `${escapeHtml(n)}<span class="user-note"> (${escapeHtml(note)})</span>`
-                : escapeHtml(n);
+            const noteHtml = note
+                ? `<span class="user-note"> (${escapeHtml(note)})</span>`
+                : "";
+            // data-person rend le nom cliquable dans main (handler ajouté dans main/script.js)
+            return `<span class="person-link" data-person="${escapeHtml(n)}">${escapeHtml(n)}</span>${noteHtml}`;
         })
         .join(", ");
 }

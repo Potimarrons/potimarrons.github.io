@@ -69,6 +69,38 @@
             </div>
         </section>
 
+        <!-- Maintenance (rank 5 uniquement, géré côté JS) -->
+        <section class="staff-panel main-card" id="maintenance-section" style="display:none;">
+            <h2>Mode maintenance</h2>
+            <p class="section-hint">
+                Activez pour bloquer l'accès au site pour tout utilisateur de rang &lt; 5.
+            </p>
+            <div class="admin-buttons">
+                <button id="maintenance-toggle-btn" onclick="toggleMaintenance()">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span id="maintenance-label">Activer la maintenance</span>
+                </button>
+            </div>
+            <p id="maintenance-status" class="section-hint" style="margin-top:.8rem;"></p>
+        </section>
+
+        <!-- Envoyer une notification -->
+        <section class="staff-panel main-card" style="display:none;">
+            <h2>Notifications</h2>
+            <p class="section-hint">Envoie un message à tous les utilisateurs actuellement connectés.</p>
+            <div class="admin-buttons">
+                <button onclick="send_notification('info')">
+                    <i class="fa-solid fa-bell"></i> Info
+                </button>
+                <button onclick="send_notification('warning')">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Avertissement
+                </button>
+                <button onclick="send_notification('error')">
+                    <i class="fa-solid fa-circle-exclamation"></i> Urgent
+                </button>
+            </div>
+        </section>
+
         <section id="access-denied" class="main-card" style="display:none;">
             <h2>Accès refusé</h2>
             <p>Cette zone est réservée au personnel autorisé.</p>
@@ -84,7 +116,9 @@
     <div id="users-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Liste des utilisateurs</h2>
-            <div id="users-list"><p>Chargement...</p></div>
+            <div id="users-list">
+                <p>Chargement...</p>
+            </div>
             <div class="popup-actions">
                 <button class="popup-close" onclick="closeUsersPopup()">Fermer</button>
             </div>
@@ -107,7 +141,8 @@
                 <p><strong>Token utilisé</strong><span id="user-token"></span></p>
                 <p><strong>Bio</strong><span id="user-bio" style="color:var(--muted);font-style:italic;"></span></p>
                 <div class="admin-notes-field">
-                    <strong>Notes admin <span style="color:var(--muted);font-weight:normal;">(admins uniquement)</span></strong>
+                    <strong>Notes admin <span style="color:var(--muted);font-weight:normal;">(admins
+                            uniquement)</span></strong>
                     <textarea id="user-admin-notes" rows="4"
                         placeholder="Notes internes sur cet utilisateur…"></textarea>
                     <button id="save-admin-notes-btn" class="popup-close save-notes-btn"
@@ -127,7 +162,9 @@
     <div id="tokens-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Tokens inutilisés</h2>
-            <div id="tokens-list"><p>Chargement...</p></div>
+            <div id="tokens-list">
+                <p>Chargement...</p>
+            </div>
             <button id="create-token-btn" title="Créer un token" onclick="create_token()">
                 <i class="fa-solid fa-plus"></i>
             </button>
@@ -144,7 +181,9 @@
             <p class="section-hint" style="margin-bottom:1rem;">
                 Contenu protégé — seuls les métadonnées et partages sont accessibles ici.
             </p>
-            <div id="kebabs-admin-list"><p>Chargement...</p></div>
+            <div id="kebabs-admin-list">
+                <p>Chargement...</p>
+            </div>
             <div class="popup-actions">
                 <button class="popup-close" onclick="closeKebabsAdminPopup()">Fermer</button>
             </div>
@@ -156,7 +195,9 @@
         <div class="popup-content">
             <h2 id="kebab-shares-admin-title">Partages du kebab</h2>
             <p id="kebab-shares-admin-owner" class="section-hint" style="margin-bottom:1rem;"></p>
-            <div id="kebab-shares-admin-list"><p>Chargement...</p></div>
+            <div id="kebab-shares-admin-list">
+                <p>Chargement...</p>
+            </div>
             <div class="popup-actions">
                 <button class="popup-close" onclick="closeKebabSharesAdminPopup()">Retour</button>
             </div>
@@ -167,7 +208,9 @@
     <div id="users-inside-popup" class="popup" style="display:none;">
         <div class="popup-content">
             <h2>Personnes impliquées</h2>
-            <div id="users-inside-list"><p>Chargement...</p></div>
+            <div id="users-inside-list">
+                <p>Chargement...</p>
+            </div>
             <div class="popup-actions">
                 <button class="popup-close" onclick="closeUsersInsidePopup()">Fermer</button>
             </div>
@@ -185,23 +228,19 @@
             <div class="person-profile-grid">
                 <div class="person-profile-field">
                     <label>Description physique</label>
-                    <textarea id="person-physical" rows="4"
-                        placeholder="Apparence, taille, cheveux…"></textarea>
+                    <textarea id="person-physical" rows="4" placeholder="Apparence, taille, cheveux…"></textarea>
                 </div>
                 <div class="person-profile-field">
                     <label>Personnalité</label>
-                    <textarea id="person-mental" rows="4"
-                        placeholder="Caractère, habitudes, traits…"></textarea>
+                    <textarea id="person-mental" rows="4" placeholder="Caractère, habitudes, traits…"></textarea>
                 </div>
                 <div class="person-profile-field">
                     <label>Amis &amp; relations</label>
-                    <textarea id="person-friends" rows="3"
-                        placeholder="Liens, cercle proche…"></textarea>
+                    <textarea id="person-friends" rows="3" placeholder="Liens, cercle proche…"></textarea>
                 </div>
                 <div class="person-profile-field">
                     <label>Notes libres</label>
-                    <textarea id="person-notes" rows="3"
-                        placeholder="Tout ce qui semble important…"></textarea>
+                    <textarea id="person-notes" rows="3" placeholder="Tout ce qui semble important…"></textarea>
                 </div>
                 <div class="person-profile-field full-width">
                     <label>Couleur d'identification</label>

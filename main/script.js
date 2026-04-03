@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderTagFilter();
     renderKebabs(allKebabs);
 
+    initRealtime();
+    initPersonCardHandler();
+
     document.getElementById("staff-panel").style.display = "block";
     document.getElementById("access-loading").style.display = "none";
 
@@ -554,6 +557,178 @@ window.closeKebabForm = function () {
 
 window.redirect = function () {
     window.location.href = "../admin/index.html";
+};
+
+// ── Realtime & notifications ─────────────────────────────────
+function initRealtime() {
+    // Canal broadcast pour les notifs admin
+    const notifChannel = sb.channel("potimarrons-notifications");
+    notifChannel
+        .on("broadcast", { event: "admin_notification" }, ({ payload }) => {
+            showNotificationBanner(payload.message, payload.type || "info", 7000);
+        })
+        .subscribe();
+
+    // Changements en temps réel sur KebabsData
+    sb.channel("kebabs-realtime")
+        .on("postgres_changes",
+            { event: "INSERT", schema: "public", table: "KebabsData" },
+            ({ new: row }) => {
+                // Ajouter uniquement si public ou appartient à l'utilisateur
+                if (row.is_public || row.owner_email === currentUserData?.email) {
+                    if (!allKebabs.find(k => k.kebab_id === row.kebab_id)) {
+                        allKebabs.unshift({ ...row, KebabShares: [] });
+                        renderKebabs(activeTagFilter === "__all__"
+                            ? allKebabs
+                            : allKebabs.filter(k =>
+                                (k.tags || "").split(",").map(t => t.trim()).includes(activeTagFilter)
+                            ));
+                        showNotificationBanner("Un nouveau kebab a été ajouté !", "info");
+                    }
+                }
+            }
+        )
+        .on("postgres_changes",
+            { event: "DELETE", schema: "public", table: "KebabsData" },
+            ({ old: row }) => {
+                const id = row?.kebab_id;
+                const idx = allKebabs.findIndex(k => k.kebab_id === id);
+                if (idx < 0) return;
+                const title = allKebabs[idx].title;
+                allKebabs.splice(idx, 1);
+                if (currentKebab?.kebab_id === id) closeKebabPopup();
+                renderKebabs(activeTagFilter === "__all__"
+                    ? allKebabs
+                    : allKebabs.filter(k =>
+                        (k.tags || "").split(",").map(t => t.trim()).includes(activeTagFilter)
+                    ));
+                showNotificationBanner(`Le kebab "${title}" a été supprimé.`, "warning");
+            }
+        )
+        .on("postgres_changes",
+            { event: "UPDATE", schema: "public", table: "KebabsData" },
+            ({ new: row }) => {
+                // Ne pas mettre à jour le contenu (laisse la personne sauvegarder),
+                // juste notifier si elle a accès à ce kebab
+                if (allKebabs.find(k => k.kebab_id === row.kebab_id)) {
+                    showNotificationBanner(
+                        `Le kebab "${row.title}" a été modifié. Actualisez si besoin.`,
+                        "update"
+                    );
+                }
+            }
+        )
+        .subscribe();
+
+    // Surveillance du mode maintenance
+    sb.channel("site-settings-realtime")
+        .on("postgres_changes",
+            {
+                event: "UPDATE", schema: "public", table: "SiteSettings",
+                filter: "key=eq.maintenance"
+            },
+            ({ new: row }) => {
+                if (row.value === "true" && (currentUserData?.rank ?? 0) < 5) {
+                    showNotificationBanner(
+                        "Le site passe en maintenance. Redirection dans 4 secondes…",
+                        "error", 4000
+                    );
+                    setTimeout(() => { location.href = "../maintenance.html"; }, 4000);
+                }
+            }
+        )
+        .subscribe();
+
+    sb.channel("kebabs-shares-realtime")
+        .on("postgres_changes",
+            { event: "INSERT", schema: "public", table: "KebabShares" },
+            ({ new: row }) => {
+                // Ajouter uniquement si public ou appartient à l'utilisateur
+                if (row.shared_with_email === currentUserData?.email) {
+                    if (!allKebabs.find(k => k.kebab_id === row.kebab_id)) {
+                        showNotificationBanner("Un nouveau kebab a été partagé avec vous, actualisez si besoin !", "info");
+                    }
+                }
+            }
+        )
+        .subscribe();
+}
+
+// ── Carte personne cliquable ─────────────────────────────────
+function initPersonCardHandler() {
+    // Délégation sur toute la popup détail kebab
+    document.getElementById("kebabs-popup").addEventListener("click", async (e) => {
+        const target = e.target.closest("[data-person]");
+        if (!target) return;
+        await openPersonCard(target.dataset.person);
+    });
+}
+
+async function openPersonCard(name) {
+    const popup = document.getElementById("person-card-popup");
+
+    document.getElementById("pc-name").textContent = name;
+
+    // Avatar par défaut
+    const dot = document.getElementById("pc-avatar-dot");
+    dot.style.background = "#555";
+
+    popup.style.display = "flex";
+
+    const { data, error } = await sb
+        .from("PersonsData").select("*").eq("name", name).maybeSingle();
+
+    if (error || !data) {
+        // Pas de fiche — afficher message
+        document.getElementById("person-card-grid").style.display = "none";
+        document.getElementById("pc-empty").style.display = "block";
+        return;
+    }
+
+    dot.style.background = data.avatar_color || "#c0392b";
+    document.getElementById("pc-physical").textContent = data.physical || "—";
+    document.getElementById("pc-mental").textContent = data.mental || "—";
+    document.getElementById("pc-friends").textContent = data.friends || "—";
+    document.getElementById("pc-notes").textContent = data.notes || "—";
+
+    // Masquer les champs vides
+    [["pc-physical-wrap", "pc-physical"], ["pc-mental-wrap", "pc-mental"],
+    ["pc-friends-wrap", "pc-friends"], ["pc-notes-wrap", "pc-notes"]].forEach(([wrapId, fieldId]) => {
+        const val = document.getElementById(fieldId).textContent;
+        document.getElementById(wrapId).style.display = (!val || val === "—") ? "none" : "block";
+    });
+
+    const hasContent = ["pc-physical", "pc-mental", "pc-friends", "pc-notes"]
+        .some(id => {
+            const v = document.getElementById(id).textContent;
+            return v && v !== "—";
+        });
+    document.getElementById("person-card-grid").style.display = hasContent ? "block" : "none";
+    document.getElementById("pc-empty").style.display = hasContent ? "none" : "block";
+}
+
+window.closePersonCard = function () {
+    document.getElementById("person-card-popup").style.display = "none";
+};
+
+// ── Bannière de notification ─────────────────────────────────
+let _notifTimer = null;
+function showNotificationBanner(message, type = "info", duration = 5000) {
+    const banner = document.getElementById("notification-banner");
+    const msg = document.getElementById("notification-message");
+    if (!banner || !msg) return;
+
+    msg.textContent = message;
+    banner.className = `notification-banner notification-banner--${type} show`;
+
+    clearTimeout(_notifTimer);
+    _notifTimer = setTimeout(dismissNotification, duration);
+}
+
+window.dismissNotification = function () {
+    const banner = document.getElementById("notification-banner");
+    if (banner) banner.classList.remove("show");
+    clearTimeout(_notifTimer);
 };
 
 // ── Markdown → HTML ─────────────────────────────────────────────
